@@ -1,5 +1,12 @@
 const isNode = typeof window === 'undefined';
-const windowObj = isNode ? { localStorage: new Map() } : window;
+const windowObj = isNode ? { 
+	localStorage: {
+		_data: new Map(),
+		getItem(key) { return this._data.get(key) || null; },
+		setItem(key, value) { this._data.set(key, value); },
+		removeItem(key) { this._data.delete(key); }
+	} 
+} : window;
 const storage = windowObj.localStorage;
 
 const toSnakeCase = (str) => {
@@ -40,6 +47,7 @@ const getAppParams = () => {
 		serverUrl: getAppParamValue("server_url", { defaultValue: import.meta.env.VITE_BASE44_BACKEND_URL }),
 		token: getAppParamValue("access_token", { removeFromUrl: true }),
 		fromUrl: getAppParamValue("from_url", { defaultValue: window.location.href }),
+		companyId: getAppParamValue("company_id", { defaultValue: import.meta.env.VITE_BASE44_COMPANY_ID }),
 		functionsVersion: getAppParamValue("functions_version"),
 	}
 }

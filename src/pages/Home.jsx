@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo, lazy, Suspense } from 'react';
 import { base44 } from '@/api/base44Client';
+import { appParams } from '@/lib/app-params';
 import { createPageUrl } from '@/utils';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -115,6 +116,21 @@ export default function HomePage() {
             console.log('═══════════════════════════════════════════');
 
             let targetCompany = null;
+            const configCompanyId = appParams.companyId;
+
+            // ✅ METHOD 0: Configured Company ID (High Priority)
+            if (configCompanyId) {
+                try {
+                    console.log('📌 METHOD 0: Using configured company ID:', configCompanyId);
+                    const configCompany = await base44.entities.Company.get(configCompanyId);
+                    if (configCompany) {
+                        targetCompany = configCompany;
+                        console.log('✅ METHOD 0: Success:', targetCompany.name);
+                    }
+                } catch (configError) {
+                    console.warn('⚠️ Method 0 failed:', configError.message);
+                }
+            }
 
             // ✅ METHOD 1: Try DefaultCompanySettings first
             try {
