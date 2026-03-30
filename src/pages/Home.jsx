@@ -3,7 +3,7 @@ import { base44 } from '@/api/base44Client';
 import { appParams } from '@/lib/app-params';
 import { createPageUrl } from '@/utils';
 import { initialProducts } from '../data/initialProducts';
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -14,10 +14,11 @@ import {
     Quote as QuoteIcon
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { toast } from 'sonner';
 import heroPremium from '../assets/hero-premium.png';
+import bgJamukito from '../assets/bg  jamukito.jpg';
 
 import ProductDetailModal from '../components/shop/ProductDetailModal';
+import { toast } from 'sonner';
 
 export default function HomePage() {
     const [user, setUser] = useState(null);
@@ -554,45 +555,45 @@ export default function HomePage() {
     const whyChooseUs = [
         {
             icon: Users,
-            title: 'Terapis Ramah & Profesional',
-            desc: 'Tenaga ahli berpengalaman dan bersertifikat'
+            title: 'Artisan Terapis Profesional',
+            desc: 'Tenaga ahli tersertifikasi dengan filosofi Hospitality from the Heart untuk pengalaman transformatif.'
         },
         {
             icon: Award,
-            title: 'Produk Tersertifikasi BPOM',
-            desc: 'Keamanan terjamin dengan standar BPOM, CPOTB, CPPOB'
+            title: 'Sertifikasi Gold Standard',
+            desc: 'Jaminan keamanan total melalui akreditasi BPOM, CPOTB, dan CPPOB pada setiap lini produk.'
         },
         {
             icon: Leaf,
-            title: 'Bahan Alami Berkualitas Tinggi',
-            desc: 'Seleksi bahan baku herbal terbaik dari alam'
+            title: 'Seleksi Botani Premium',
+            desc: 'Ekstraksi bahan herbal terbaik Nusantara yang dikurasi secara ketat untuk kemurnian maksimal.'
         },
         {
             icon: MapPin,
-            title: 'Gratis Biaya Transportasi',
-            desc: 'Layanan kunjungan tanpa biaya tambahan'
+            title: 'Layanan Concierge Eksklusif',
+            desc: 'Kenyamanan tanpa kompromi melalui layanan kunjungan profesional tanpa biaya tambahan.'
         }];
 
 
     const testimonials = [
         {
             name: 'Ibu Siti Rahayu',
-            role: 'Pelanggan Setia',
-            content: 'Jamu Kito membantu saya mengatasi masalah kesehatan dengan cara alami. Produknya berkualitas dan terpercaya!',
+            role: 'VIP Wellness Member',
+            content: 'Transformasi kesehatan saya terasa nyata sejak beralih ke ritual herbal Jamu Kito. Hasilnya melebihi ekspektasi!',
             rating: 5,
             location: 'Bengkulu'
         },
         {
-            name: 'Pak Bambang',
-            role: 'Mitra Bisnis',
-            content: 'Layanan spa-nya sangat profesional, terapis ramah dan hasilnya memuaskan. Recommended!',
+            name: 'Bpk. Bambang Suherman',
+            role: 'SaaS Entrepreneur',
+            content: 'Standardisasi layanan terapinya luar biasa. Sangat eksklusif dan profesional, cocok untuk gaya hidup dinamis.',
             rating: 5,
             location: 'Jakarta'
         },
         {
             name: 'Dr. Maya Kusuma',
-            role: 'Praktisi Kesehatan',
-            content: 'Produk herbal Jamu Kito memenuhi standar kesehatan dan sangat membantu pasien saya',
+            role: 'Clinical Wellness Consultant',
+            content: 'Sebagai praktisi, saya sangat mengapresiasi kemurnian bahan baku dan akurasi dosis dalam setiap produk herbal mereka.',
             rating: 5,
             location: 'Bandung'
         }];
@@ -681,6 +682,7 @@ export default function HomePage() {
 
                             {user?.id ? (
                                 <Button
+                                    variant="default"
                                     onClick={handleGetStarted}
                                     className="bg-emerald-600 hover:bg-emerald-500 text-white rounded-full px-5 py-2 text-xs font-semibold tracking-wider flex items-center gap-2 shadow-lg shadow-emerald-900/20"
                                 >
@@ -697,6 +699,7 @@ export default function HomePage() {
                                         Masuk
                                     </Button>
                                     <Button 
+                                        variant="default"
                                         onClick={handleGetStarted} 
                                         className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black rounded-full px-6 py-2 text-xs font-bold uppercase tracking-wider shadow-lg shadow-amber-900/20"
                                     >
@@ -747,15 +750,15 @@ export default function HomePage() {
             {/* Cinematic Hero Section */}
             <section
                 ref={heroRef}
-                className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center overflow-hidden bg-[#022c22]"
+                className="relative min-h-screen flex items-center justify-center md:justify-start overflow-hidden bg-[#022c22]"
             >
                 {/* Dynamic Background */}
                 <div className="absolute inset-0 z-0">
                     <motion.div
-                        className="absolute inset-0 opacity-40 bg-cover bg-center"
+                        className="absolute inset-0 opacity-60 md:opacity-100 bg-cover bg-center md:bg-right"
                         style={{
-                            backgroundImage: 'url(https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?q=80&w=1974&auto=format&fit=crop)',
-                            scale: 1.1
+                            backgroundImage: `url(${bgJamukito})`,
+                            scale: 1.05
                         }}
                         animate={{
                             scale: [1, 1.05, 1],
@@ -766,166 +769,109 @@ export default function HomePage() {
                             ease: "linear"
                         }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#022c22] via-[#022c22]/90 to-emerald-950/80" />
+                    {/* Premium Dark Overlay Gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-b md:bg-gradient-to-r from-black/80 via-[#022c22]/90 to-transparent" />
                     
                     {/* Animated Mesh Gradients */}
-                    <div className="absolute top-1/4 -left-1/4 w-[60%] h-[60%] bg-emerald-500/10 rounded-full blur-[120px] animate-pulse" />
-                    <div className="absolute bottom-1/4 -right-1/4 w-[60%] h-[60%] bg-amber-500/5 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '2s' }} />
+                    <div className="absolute top-1/4 left-1/4 md:left-1/4 -translate-x-1/2 w-[80%] md:w-[60%] h-[60%] bg-emerald-500/10 rounded-full blur-[120px] animate-pulse" />
                 </div>
 
-                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 w-full pt-20">
-                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 w-full pt-32 pb-20">
+                    <div className="flex flex-col items-center md:items-start text-center md:text-left md:max-w-3xl">
                         
-                        {/* Text Content */}
+                        {/* Status Pill */}
                         <motion.div
-                            initial={{ opacity: 0, x: -50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, ease: "easeOut" }}
-                            className="text-left"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8 }}
+                            className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 mb-8"
                         >
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.2 }}
-                                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-8"
-                            >
-                                <Sparkles className="w-4 h-4 text-amber-400" />
-                                <span className="text-emerald-400 text-xs font-bold uppercase tracking-[0.2em]">Since 2018 - Practical Healthy Living</span>
-                            </motion.div>
+                            <Sparkles className="w-4 h-4 text-amber-400" />
+                            <span className="text-white/90 text-[10px] sm:text-xs font-bold uppercase tracking-[0.3em]">
+                                Since 2018 - Practical Healthy Living Every Day
+                            </span>
+                        </motion.div>
 
-                            <motion.h1 
-                                className="text-6xl md:text-8xl font-black text-white leading-[0.85] mb-6 tracking-tighter"
-                                style={{ fontFamily: 'Outfit, sans-serif' }}
-                            >
+                        {/* Main Typography */}
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 1, delay: 0.2 }}
+                            className="space-y-4 mb-10"
+                        >
+                            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black text-white leading-[0.9] tracking-tighter uppercase font-sans">
                                 PT JAMUKITO <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-amber-400">INTERNATIONAL</span>
-                            </motion.h1>
-
-                            <motion.p 
-                                className="text-lg md:text-xl text-emerald-50/80 mb-10 leading-relaxed max-w-xl font-medium"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 0.6 }}
-                            >
-                                Jamu, Spa & Herbal Wellness. <br />
-                                <span className="italic font-light">"Your TRULY Solutions for Health & Wellness"</span>
-                            </motion.p>
-
-                            <motion.div 
-                                className="flex flex-wrap gap-4"
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.8 }}
-                            >
-                                <Button 
-                                    size="lg"
-                                    onClick={handleGetStarted}
-                                    className="bg-amber-500 hover:bg-amber-400 text-black px-10 py-8 text-lg font-bold rounded-2xl shadow-[0_20px_50px_rgba(217,119,6,0.3)] transition-all hover:-translate-y-1"
-                                >
-                                    Eksplorasi Sekarang
-                                    <ArrowRight className="ml-2 w-6 h-6" />
-                                </Button>
-                                
-                                <Button 
-                                    variant="outline"
-                                    size="lg"
-                                    className="bg-white/5 border-white/10 text-white px-10 py-8 text-lg font-bold rounded-2xl backdrop-blur-xl hover:bg-white/10 transition-all"
-                                    onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
-                                >
-                                    Lihat Layanan
-                                </Button>
-                            </motion.div>
-
-                            {/* Trust Badges */}
-                            <motion.div 
-                                className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-6 pt-10 border-t border-white/5"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 1 }}
-                            >
-                                {[
-                                    { label: 'Sertifikasi', val: 'BPOM RI', icon: Shield },
-                                    { label: 'Kualitas', val: 'Premium', icon: Award },
-                                    { label: 'Bahan', val: '100% Alami', icon: Leaf },
-                                    { label: 'Layanan', val: 'Terpercaya', icon: Heart }
-                                ].map((badge, i) => (
-                                    <div key={i} className="flex flex-col gap-1">
-                                        <div className="flex items-center gap-2 text-amber-500/50">
-                                            <badge.icon className="w-3 h-3" />
-                                            <span className="text-[10px] uppercase tracking-widest font-bold opacity-60">{badge.label}</span>
-                                        </div>
-                                        <span className="text-white font-medium text-sm">{badge.val}</span>
-                                    </div>
-                                ))}
-                            </motion.div>
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-emerald-200 to-amber-400">
+                                    INTERNATIONAL
+                                </span>
+                            </h1>
+                            <div className="h-1 w-24 bg-gradient-to-r from-emerald-500 to-amber-500 mx-auto md:mx-0 rounded-full" />
+                            <p className="text-xl sm:text-2xl font-bold text-emerald-400/90 tracking-wide">
+                                Jamu, Spa & Herbal Wellness
+                            </p>
+                            <p className="text-lg sm:text-xl text-white/70 italic font-light leading-relaxed md:max-w-xl">
+                                "Your TRULY Solutions for Health & Wellness"
+                            </p>
                         </motion.div>
 
-                        {/* Hero Image / Visual */}
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.8, rotateY: 20 }}
-                            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                            transition={{ duration: 1.2, ease: "easeOut" }}
-                            className="relative perspective-1000 hidden lg:block"
+                        {/* CTA Actions */}
+                        <motion.div 
+                            className="flex flex-col sm:flex-row gap-4 mb-20"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.6 }}
                         >
-                            <div className="relative group">
-                                {/* Glow Effect */}
-                                <div className="absolute inset-0 bg-emerald-500/20 rounded-[4rem] blur-[100px] animate-pulse" />
-                                
-                                <motion.div
-                                    animate={{ y: [0, -20, 0] }}
-                                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                                    className="relative z-10"
-                                >
-                                    <img 
-                                        src={heroPremium} 
-                                        alt="Jamu Kito Premium" 
-                                        className="w-full max-w-xl mx-auto drop-shadow-[0_50px_50px_rgba(0,0,0,0.5)] transform transition-transform group-hover:scale-105 duration-700" 
-                                    />
-                                    
-                                    {/* Floating Stats Card */}
-                                    <motion.div 
-                                        className="absolute -bottom-10 -left-10 bg-white/5 backdrop-blur-3xl border border-white/10 p-6 rounded-3xl shadow-2xl flex items-center gap-4"
-                                        initial={{ opacity: 0, y: 40 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: 1.5 }}
-                                    >
-                                        <div className="w-12 h-12 bg-amber-500 rounded-2xl flex items-center justify-center">
-                                            <Star className="text-black w-6 h-6 fill-black" />
-                                        </div>
-                                        <div>
-                                            <p className="text-white text-2xl font-bold leading-none">4.9/5</p>
-                                            <p className="text-white/40 text-xs uppercase tracking-widest mt-1">Customer Rating</p>
-                                        </div>
-                                    </motion.div>
-
-                                    {/* Floating Experience Card */}
-                                    <motion.div 
-                                        className="absolute top-10 -right-5 bg-emerald-600 border border-emerald-400/30 p-6 rounded-3xl shadow-2xl"
-                                        initial={{ opacity: 0, x: 40 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: 1.8 }}
-                                    >
-                                        <p className="text-white text-3xl font-black leading-none">7+</p>
-                                        <p className="text-white/80 text-xs uppercase tracking-widest mt-1">Years Excellence</p>
-                                    </motion.div>
-                                </motion.div>
-                            </div>
+                            <Button 
+                                variant="default"
+                                size="lg"
+                                onClick={handleGetStarted}
+                                className="bg-white hover:bg-emerald-50 text-green-900 px-12 py-8 text-lg font-extrabold rounded-2xl shadow-2xl transition-all hover:-translate-y-1 active:scale-95"
+                            >
+                                Pesan Sekarang
+                            </Button>
+                            
+                            <Button 
+                                variant="outline"
+                                size="lg"
+                                className="bg-white/5 border-white/20 text-white px-10 py-8 text-lg font-bold rounded-2xl backdrop-blur-xl hover:bg-white/10 hover:border-white/40 transition-all flex items-center gap-3"
+                                onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
+                            >
+                                Lihat Layanan
+                                <ChevronRight className="w-5 h-5" />
+                            </Button>
                         </motion.div>
 
+                        {/* 2x2 Trust Grid - The Premium Brand Signature */}
+                        <motion.div 
+                            className="grid grid-cols-2 gap-4 sm:gap-6 w-full max-w-4xl"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 1 }}
+                        >
+                            {[
+                                { title: 'Terapis Ramah', desc: '& Profesional', icon: Users },
+                                { title: 'Sediaan Terdaftar', desc: 'BPOM RI', icon: Shield },
+                                { title: 'Bahan Alami', desc: 'Pilihan Terbaik', icon: Leaf },
+                                { title: 'Layanan Terpercaya', desc: 'Sejak 2018', icon: Award }
+                            ].map((item, idx) => (
+                                <div 
+                                    key={idx}
+                                    className="group p-6 rounded-3xl bg-white/5 backdrop-blur-sm border border-white/5 hover:border-emerald-500/30 transition-all duration-500 text-left flex items-start gap-4"
+                                >
+                                    <div className="p-3 rounded-2xl bg-emerald-500/10 text-emerald-400 group-hover:scale-110 transition-transform">
+                                        <item.icon className="w-6 h-6" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-white font-bold text-sm sm:text-base leading-tight">{item.title}</h3>
+                                        <p className="text-emerald-400/60 text-xs sm:text-sm font-medium">{item.desc}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </motion.div>
                     </div>
                 </div>
-
-                {/* Scroll Indicator */}
-                <motion.div 
-                    className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-4"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 2 }}
-                >
-                    <span className="text-white/20 text-[10px] uppercase tracking-[0.4em] rotate-90 mb-4 h-20 flex items-center">EXPLORE</span>
-                    <div className="w-[1px] h-20 bg-gradient-to-b from-transparent via-white/20 to-transparent" />
-                </motion.div>
             </section>
+
 
 
             {/* About Section - THE ESSENCE */}
@@ -954,7 +900,7 @@ export default function HomePage() {
                             </h2>
 
                             <p className="text-gray-600 mb-8 text-xl leading-relaxed font-light max-w-xl">
-                                PT Jamu Kito Internasional adalah perusahaan herbal modern yang berkomitmen menghadirkan kearifan obat tradisional Indonesia (jamu) ke dalam gaya hidup saat ini. Produk kami dirancang bagi mereka yang mencari keseimbangan — antara tradisi dan inovasi, alam dan sains.
+                                PT. Jamu Kito Internasional is a modern herbal company committed to bringing the wisdom of Indonesian traditional medicine (jamu) into today's lifestyle. From handcrafted jamu recipes to modern herbal drinks, our products are designed for people who seek balance — between tradition and innovation, nature and science.
                             </p>
 
                             <div className="grid sm:grid-cols-2 gap-8 mb-12">
@@ -967,7 +913,7 @@ export default function HomePage() {
                                     </div>
                                     <h4 className="font-display font-black text-emerald-900 text-xl mb-3 tracking-tight">VISI</h4>
                                     <p className="text-emerald-800/70 text-sm leading-relaxed">
-                                        Menjadi duta global kesehatan herbal Indonesia yang modern dan terpercaya.
+                                        To become a global ambassador of Indonesian herbal wellness.
                                     </p>
                                 </motion.div>
 
@@ -980,17 +926,18 @@ export default function HomePage() {
                                     </div>
                                     <h4 className="font-display font-black text-amber-900 text-xl mb-3 tracking-tight">MISI</h4>
                                     <p className="text-amber-800/70 text-sm leading-relaxed">
-                                        Melestarikan dan memodernisasi tradisi herbal Indonesia melalui inovasi berkelanjutan.
+                                        To preserve and modernize Indonesia's herbal traditions.
                                     </p>
                                 </motion.div>
                             </div>
 
                             <Button
+                                variant="default"
                                 size="lg"
                                 className="bg-emerald-900 hover:bg-emerald-950 text-white rounded-full px-10 py-7 text-lg font-bold shadow-2xl shadow-emerald-900/20 group"
                                 onClick={handleGetStarted}
                             >
-                                Selengkapnya
+                                Pelajari Lebih Lanjut
                                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </Button>
                         </motion.div>
@@ -1051,14 +998,17 @@ export default function HomePage() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}>
 
-                        <Badge className="mb-6 px-4 py-1.5 bg-emerald-100 text-emerald-800 border-emerald-200/50 font-medium tracking-wide">
-                            Layanan Eksklusif
+                        <Badge 
+                            variant="secondary"
+                            className="mb-6 px-5 py-2 bg-emerald-900/5 text-emerald-800 border-emerald-200/50 font-black tracking-[0.3em] uppercase text-[10px] rounded-full"
+                        >
+                            Wellness Selection
                         </Badge>
-                        <h2 className="text-4xl md:text-6xl font-display font-black text-emerald-950 mb-6 tracking-tight leading-[1.1]">
-                            Layanan & <span className="text-amber-600">Harga</span>
+                        <h2 className="text-5xl md:text-7xl font-sans font-black text-emerald-950 mb-8 tracking-tighter leading-[0.9]">
+                            LAYANAN & <span className="text-amber-600">HARGA</span>
                         </h2>
-                        <p className="text-lg md:text-xl text-emerald-900/60 max-w-2xl mx-auto leading-relaxed font-light">
-                            Pilihan lengkap untuk kesehatan dan kesejahteraan Anda. Kami menghadirkan solusi alami yang elegan untuk gaya hidup modern.
+                        <p className="text-xl text-emerald-900/60 max-w-2xl mx-auto leading-relaxed font-light font-sans">
+                            Elegansi tradisional bertemu dengan kenyamanan modern. Temukan rangkaian layanan wellness eksklusif yang dirancang khusus untuk memulihkan energi dan vitalitas Anda secara alami.
                         </p>
                     </motion.div>
 
@@ -1104,15 +1054,20 @@ export default function HomePage() {
                                 {/* Header Card for Service */}
                                 <div className="mb-24 text-center max-w-3xl mx-auto">
                                     <motion.div 
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: 0.2 }}
-                                        className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-emerald-900 text-white shadow-2xl mb-8 -rotate-3 hover:rotate-0 transition-transform duration-500"
+                                        initial={{ opacity: 0, scale: 0.5 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ 
+                                            type: "spring", 
+                                            stiffness: 260, 
+                                            damping: 20,
+                                            delay: 0.2 
+                                        }}
+                                        className="inline-flex items-center justify-center w-24 h-24 rounded-[2.5rem] bg-emerald-900 text-white shadow-2xl shadow-emerald-900/40 mb-10 -rotate-6 hover:rotate-0 transition-transform duration-700"
                                     >
                                         <service.icon className="w-10 h-10" />
                                     </motion.div>
-                                    <h3 className="text-3xl md:text-4xl font-display font-bold text-emerald-950 mb-4">{service.title}</h3>
-                                    <p className="text-emerald-900/60 text-lg leading-relaxed">{service.description}</p>
+                                    <h3 className="text-4xl md:text-6xl font-sans font-black text-emerald-950 mb-6 tracking-tight leading-none uppercase">{service.title}</h3>
+                                    <p className="text-emerald-900/60 text-xl leading-relaxed font-light italic font-sans">{service.description}</p>
                                 </div>
 
                                 {/* Treatments List */}
@@ -1209,28 +1164,28 @@ export default function HomePage() {
                                                             </div>
                                                         </div>
 
-                                                        <div className="flex flex-col sm:flex-row gap-4">
-                                                            <motion.button
-                                                                whileHover={{ scale: 1.02, y: -2 }}
-                                                                whileTap={{ scale: 0.98 }}
-                                                                className="relative group overflow-hidden bg-emerald-900 text-white px-10 py-5 rounded-2xl font-bold text-lg shadow-2xl shadow-emerald-950/20"
+                                                        <div className="flex flex-col sm:flex-row gap-4 mt-12">
+                                                            <Button
+                                                                variant="default"
+                                                                size="lg"
+                                                                className="relative group overflow-hidden bg-emerald-900 hover:bg-emerald-950 text-white px-10 py-8 rounded-2xl font-black text-lg shadow-2xl shadow-emerald-950/20 border-none transition-all duration-500 hover:-translate-y-1 active:scale-95"
                                                                 onClick={() => handleProductClick(treatment)}
                                                             >
-                                                                <div className="absolute inset-0 bg-gradient-to-r from-emerald-800 to-emerald-900 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                                                <div className="absolute inset-0 bg-gradient-to-r from-emerald-800 to-emerald-950 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                                                                 <span className="relative z-10 flex items-center justify-center gap-3">
-                                                                    <MessageSquare className="w-5 h-5" />
-                                                                    Reservasi Sekarang
+                                                                    <MessageSquare className="w-6 h-6" />
+                                                                    Reservasi Eksklusif
                                                                 </span>
-                                                            </motion.button>
+                                                            </Button>
                                                             
-                                                            <motion.button
-                                                                whileHover={{ scale: 1.02, backgroundColor: 'rgba(5, 46, 22, 0.05)' }}
-                                                                whileTap={{ scale: 0.98 }}
-                                                                className="px-10 py-5 rounded-2xl border-2 border-emerald-900/10 text-emerald-900 font-bold text-lg transition-colors"
+                                                            <Button
+                                                                variant="outline"
+                                                                size="lg"
+                                                                className="px-10 py-8 rounded-2xl border-2 border-emerald-900/10 hover:border-emerald-900/30 hover:bg-emerald-900/5 text-emerald-900 font-black text-lg transition-all duration-500"
                                                                 onClick={() => handleProductClick(treatment)}
                                                             >
                                                                 Detail Layanan
-                                                            </motion.button>
+                                                            </Button>
                                                         </div>
                                                     </motion.div>
                                                 </div>
@@ -1259,14 +1214,17 @@ export default function HomePage() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}>
 
-                        <Badge className="mb-6 px-4 py-1.5 bg-amber-500/10 text-amber-500 border-amber-500/20 font-bold tracking-[0.2em] uppercase text-[10px]">
-                            Premium Selection
+                        <Badge 
+                            variant="secondary"
+                            className="mb-8 px-6 py-2.5 bg-white/5 text-amber-400 border-white/10 font-black tracking-[0.4em] uppercase text-[10px] rounded-full backdrop-blur-md"
+                        >
+                            Curated Masterpieces
                         </Badge>
-                        <h2 className="text-4xl md:text-6xl font-display font-black text-white mb-6 tracking-tight leading-[1.1]">
-                            Koleksi <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500">Terbaik</span> Kami
+                        <h2 className="text-5xl md:text-8xl font-sans font-black text-white mb-10 tracking-tighter leading-[0.8] uppercase">
+                            HERITA<span className="text-transparent bg-clip-text bg-gradient-to-b from-amber-200 to-amber-600">GE</span> COLLECTION
                         </h2>
-                        <p className="text-lg md:text-xl text-white/40 max-w-2xl mx-auto leading-relaxed">
-                            Sentuhan keajaiban alam dalam setiap produk, dirancang khusus untuk memenuhi standar gaya hidup modern Anda.
+                        <p className="text-xl md:text-2xl text-white/50 max-w-3xl mx-auto leading-relaxed font-light font-sans italic">
+                            Mahakarya Kesehatan Nusantara, diekstraksi dari bahan botani terbaik dan disempurnakan melalui riset modern untuk menghadirkan kualitas hidup yang prestisius.
                         </p>
                     </motion.div>
 
@@ -1396,7 +1354,7 @@ export default function HomePage() {
                             transition={{ duration: 0.8 }}
                         >
                             <span className="text-amber-500 font-black tracking-[0.4em] text-[10px] uppercase mb-6 block">
-                                The Singularity Standard
+                                Practical Healthy Living
                             </span>
                             <h2 className="text-4xl md:text-7xl font-display font-black text-white mb-8 leading-[0.9] tracking-tighter">
                                 MENGAPA<br />
@@ -1423,41 +1381,48 @@ export default function HomePage() {
                             {whyChooseUs.map((item, idx) => (
                                 <motion.div
                                     key={idx}
-                                    initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                                    initial={{ opacity: 0, scale: 0.9, y: 30 }}
                                     whileInView={{ opacity: 1, scale: 1, y: 0 }}
                                     viewport={{ once: true }}
-                                    transition={{ delay: idx * 0.1, duration: 0.5 }}
-                                    className="p-8 rounded-[2.5rem] bg-white/5 border border-white/10 backdrop-blur-xl hover:bg-white/10 hover:border-amber-500/30 transition-all duration-500 group"
+                                    transition={{ 
+                                        delay: idx * 0.1, 
+                                        duration: 0.8,
+                                        ease: [0.22, 1, 0.36, 1]
+                                    }}
+                                    className="p-10 rounded-[3rem] bg-white/5 border border-white/10 backdrop-blur-2xl hover:bg-white/10 hover:border-amber-500/30 transition-all duration-700 group relative overflow-hidden"
                                 >
-                                    <div className="w-14 h-14 bg-amber-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform shadow-lg shadow-amber-500/20">
-                                        <item.icon className="w-7 h-7 text-black" />
+                                    {/* Glass Highlight */}
+                                    <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                                    
+                                    <div className="w-16 h-16 bg-amber-500 rounded-[1.5rem] flex items-center justify-center mb-8 group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-700 shadow-2xl shadow-amber-500/30">
+                                        <item.icon className="w-8 h-8 text-black" />
                                     </div>
-                                    <h3 className="text-xl font-bold text-white mb-3 tracking-tight group-hover:text-amber-400 transition-colors">{item.title}</h3>
-                                    <p className="text-white/40 text-sm leading-relaxed">{item.desc}</p>
+                                    <h3 className="text-2xl font-black text-white mb-4 tracking-tighter group-hover:text-amber-400 transition-colors duration-500">{item.title}</h3>
+                                    <p className="text-white/30 text-base leading-relaxed font-light italic">{item.desc}</p>
                                 </motion.div>
                             ))}
                         </div>
                     </div>
 
-                    {/* Infinite Success Ticker */}
+                    {/* Infinite Success Ticker - Ultra Modern */}
                     <motion.div
-                        className="py-12 border-y border-white/5 grid grid-cols-2 md:grid-cols-3 gap-12"
+                        className="py-20 border-t border-white/5 flex flex-wrap justify-between items-center gap-12"
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.5 }}>
                         
                         {[
-                            { icon: Users, value: '1,250+', label: 'Happy Souls' },
-                            { icon: Package, value: '150+', label: 'Elite Products' },
-                            { icon: Heart, value: '5,000+', label: 'Pure Reviews' }
+                            { icon: Users, value: '1,250+', label: 'Elite Patients' },
+                            { icon: Package, value: '150+', label: 'Artisan Products' },
+                            { icon: Heart, value: '5,000+', label: 'Curated Reviews' }
                         ].map((stat, idx) => (
-                            <div key={idx} className="text-center group cursor-default">
-                                <stat.icon className="w-6 h-6 text-amber-500/50 mx-auto mb-4 group-hover:text-amber-400 transition-colors" />
-                                <p className="text-4xl md:text-6xl font-black text-white mb-2 tracking-tighter group-hover:scale-105 transition-transform duration-500">
+                            <div key={idx} className="flex-1 min-w-[200px] text-center group cursor-default">
+                                <stat.icon className="w-8 h-8 text-amber-500/30 mx-auto mb-6 group-hover:text-amber-400 group-hover:scale-110 transition-all duration-700" />
+                                <p className="text-5xl md:text-7xl font-black text-white mb-3 tracking-tighter group-hover:text-amber-200 transition-colors duration-700">
                                     {stat.value}
                                 </p>
-                                <p className="text-[10px] text-white/20 uppercase tracking-[0.4em] font-bold">{stat.label}</p>
+                                <p className="text-[10px] text-white/20 uppercase tracking-[0.5em] font-black">{stat.label}</p>
                             </div>
                         ))}
                     </motion.div>
@@ -1465,20 +1430,29 @@ export default function HomePage() {
             </section>
 
             {/* Testimonials - THE LUXURY REVIEW */}
-            <section id="testimoni" className="py-32 bg-white relative">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-24">
-                        <Badge className="mb-6 px-4 py-1.5 bg-emerald-100 text-emerald-800 border-emerald-200/50 font-bold tracking-[0.2em] uppercase text-[10px]">
-                            Voice of Excellence
+            <section id="testimoni" className="py-40 bg-white relative overflow-hidden">
+                {/* Decorative Elements */}
+                <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-emerald-50/50 to-transparent pointer-events-none" />
+                <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-amber-100/30 rounded-full blur-[120px] pointer-events-none" />
+                
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div className="text-center mb-32">
+                        <Badge 
+                            variant="secondary"
+                            className="mb-8 px-6 py-2.5 bg-emerald-900/5 text-emerald-800 border-emerald-200/50 font-black tracking-[0.4em] uppercase text-[10px] rounded-full"
+                        >
+                            Global Wellness Standard
                         </Badge>
-                        <h2 className="text-4xl md:text-6xl font-display font-black text-emerald-950 mb-6 tracking-tight">
-                            Review <span className="italic text-emerald-800">Eksklusif</span>
+                        <h2 className="text-5xl md:text-8xl font-display font-black text-emerald-950 mb-10 tracking-tighter leading-[0.8] uppercase">
+                            VOICE OF <span className="italic text-emerald-800">EXCELLENCE</span>
                         </h2>
-                        <div className="flex items-center justify-center gap-1">
+                        <div className="flex items-center justify-center gap-2">
                             {[1, 2, 3, 4, 5].map((_, i) => (
-                                <Star key={i} className="w-5 h-5 fill-amber-400 text-amber-400" />
+                                <Star key={i} className="w-6 h-6 fill-amber-400 text-amber-400" />
                             ))}
-                            <span className="ml-3 text-emerald-900/40 text-sm font-bold uppercase tracking-widest">5.0 average rating</span>
+                            <span className="ml-5 text-emerald-900/30 text-[10px] font-black uppercase tracking-[0.3em]">
+                                5.0 Precision Rated &bull; 1,250+ Verified Rituals
+                            </span>
                         </div>
                     </div>
 
