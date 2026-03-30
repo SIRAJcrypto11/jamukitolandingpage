@@ -1,0 +1,167 @@
+css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =============================================
+   SAFE AREA HANDLING - Google Play Requirement
+   ============================================= */
+:root {
+  --safe-area-inset-top: env(safe-area-inset-top);
+  --safe-area-inset-right: env(safe-area-inset-right);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom);
+  --safe-area-inset-left: env(safe-area-inset-left);
+}
+
+/* =============================================
+   DARK MODE - STABLE & UNTOUCHED
+   ============================================= */
+.dark {
+  color-scheme: dark !important;
+}
+
+.dark body,
+.dark .page-background {
+  background-color: #171717 !important;
+  color: #F5F5F5 !important;
+}
+
+.dark .bg-gray-950,
+.dark .bg-gray-900,
+.dark .bg-gray-800,
+.dark .bg-neutral-900,
+.dark .bg-neutral-800 {
+  background-color: #171717 !important;
+}
+
+.dark .bg-white,
+.dark .card,
+.dark .bg-card {
+  background-color: #262626 !important;
+  color: #F5F5F5 !important;
+}
+
+.dark .border,
+.dark .border-gray-200,
+.dark .border-gray-300,
+.dark .border-gray-700,
+.dark .border-gray-800 {
+  border-color: #3F3F3F !important;
+}
+
+.dark .text-white,
+.dark .text-gray-900,
+.dark .text-gray-100 {
+  color: #F5F5F5 !important;
+}
+
+/* =============================================
+   LIGHT MODE - CLEAN WHITE, NO CROSS-CONTAMINATION
+   ============================================= */
+.light {
+  color-scheme: light !important;
+}
+
+.light body,
+.light main,
+.light .page-background {
+  background-color: #FFFFFF !important;
+  color: #1F2937 !important;
+}
+
+/* Remove all shadows in light mode */
+.light *:not(.shadow-keep) {
+  box-shadow: none !important;
+}
+
+/* Light mode backgrounds - pure white */
+.light .bg-gray-950,
+.light .bg-gray-900,
+.light .bg-gray-800,
+.light .bg-gray-700,
+.light .bg-gray-100,
+.light .bg-gray-50,
+.light .bg-neutral-950,
+.light .bg-neutral-900,
+.light .bg-neutral-800,
+.light .bg-slate-950,
+.light .bg-slate-900,
+.light .bg-slate-800 {
+  background-color: #FFFFFF !important;
+  color: #1F2937 !important;
+}
+
+.light .bg-white,
+.light .card,
+.light .bg-card {
+  background-color: #FFFFFF !important;
+  color: #1F2937 !important;
+}
+
+/* Light mode borders */
+.light .border,
+.light .border-gray-200,
+.light .border-gray-300,
+.light .border-gray-700,
+.light .border-gray-800 {
+  border-color: #E5E7EB !important;
+}
+
+/* Light mode text colors */
+.light .text-white,
+.light .text-gray-100,
+.light .text-gray-200,
+.light .text-gray-300 {
+  color: #1F2937 !important;
+}
+
+.light .text-gray-900 { color: #111827 !important; }
+.light .text-gray-800 { color: #1F2937 !important; }
+.light .text-gray-700 { color: #374151 !important; }
+.light .text-gray-600 { color: #4B5563 !important; }
+.light .text-gray-500 { color: #6B7280 !important; }
+.light .text-gray-400 { color: #9CA3AF !important; }
+
+/* Remove yellow colors in light mode */
+.light .bg-yellow-50,
+.light .bg-yellow-100,
+.light .bg-yellow-200,
+.light .bg-yellow-300,
+.light .bg-yellow-400,
+.light .bg-yellow-500 {
+  background-color: #DBEAFE !important;
+  color: #1E40AF !important;
+}
+
+.light .text-yellow-300,
+.light .text-yellow-400,
+.light .text-yellow-500 {
+  color: #2563EB !important;
+}
+
+/* Forms in light mode */
+.light input,
+.light textarea,
+.light select {
+  background-color: #FFFFFF !important;
+  color: #1F2937 !important;
+  border-color: #E5E7EB !important;
+}
+
+/* Buttons in light mode */
+.light .bg-blue-600,
+.light .bg-blue-700 {
+  background-color: #2563EB !important;
+  color: #FFFFFF !important;
+}
+
+/* Override inline dark styles in light mode */
+.light [style*="background-color: rgb(31"],
+.light [style*="background-color: rgb(17"],
+.light [style*="background-color: rgb(23"],
+.light [style*="background-color: rgb(38"],
+.light [style*="background-color: #1"],
+.light [style*="background-color: #2"] {
+  background-color: #FFFFFF !important;
+  color: #1F2937 !important;
+}

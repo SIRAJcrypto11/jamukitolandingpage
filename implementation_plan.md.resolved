@@ -1,0 +1,134 @@
+# Fix PDF to Word: Smart Layout Reconstruction Engine
+
+## Root Cause
+
+The current [pdf-to-word/page.tsx](file:///c:/Users/Siraj%20Nur%20Ihrom/Documents/SNISHOP.ID/MARDOWN%20TO%20PDF/src/app/tools/pdf-to-word/page.tsx) uses `pdfjs-dist`'s `getTextContent()` → `.join(" ")`, which **destroys 100% of document structure**:
+
+- **Lines** become one blob of text per page
+- **Paragraphs** are lost (no gap detection)
+- **Bold/Italic/Headings** are ignored (font metadata never read)
+- **Tables** become random number sequences
+- **Images** are completely dropped
+- **Page breaks** are jammed together
+
+This is why the user's Skripsi PDF outputs only `[Page 1]` labels followed by garbled text.
+
+> [!CAUTION]
+> The current conversion is fundamentally broken at the architecture level — not a minor bug. A complete rewrite of the conversion engine is required.
+
+---
+
+## Proposed Changes
+
+### Conversion Pipeline
+
+```mermaid
+graph LR
+  A[PDF File] --> B[pdfjs-dist<br/>Extract Items]
+  B --> C[Layout Engine<br/>Reconstruct Lines]
+  C --> D[Style Detector<br/>Bold/Italic/Heading]
+  D --> E[Paragraph Builder<br/>Group by Gaps]
+  E --> F[docx Library<br/>Generate DOCX]
+  F --> G[Download DOCX]
+```
+
+---
+
+### Core Library
+
+#### [NEW] [pdf-to-word-engine.ts](file:///c:/Users/Siraj%20Nur%20Ihrom/Documents/SNISHOP.ID/MARDOWN%20TO%20PDF/src/lib/pdf-to-word-engine.ts)
+
+A new client-side engine module with the following algorithms:
+
+| Algorithm | Purpose | How |
+|---|---|---|
+| **Line Detection** | Group text items into visual lines | Sort by Y-coordinate, items within ±2px tolerance = same line |
+| **Word Spacing** | Insert spaces between words | If X-gap between items exceeds average char width, insert space |
+| **Paragraph Detection** | Separate paragraphs | If vertical gap between lines > 1.5× line height, new paragraph |
+| **Font/Style Detection** | Detect bold, italic, font size | Parse `fontName` for "Bold", "Italic"; read `transform[0]` for size |
+| **Heading Inference** | Detect H1/H2/H3 | Lines with fontSize ≥ 1.3× body median = heading |
+| **List Detection** | Recognize bullet/numbered lists | Lines starting with `•`, `-`, `*`, or `\d+[.)]` |
+| **Page Break Insertion** | Preserve page boundaries | Insert DOCX page breaks between pages |
+
+**Key data used from `pdfjs-dist` items:**
+
+```
+item.str         → actual text content
+item.transform[4] → X position (horizontal)
+item.transform[5] → Y position (vertical)
+item.transform[0] → font scale (≈ font size)
+item.fontName     → font identifier (e.g. "g_d0_f1" → mapped via styles)
+item.width        → text width
+item.height       → text height
+```
+
+---
+
+### Page Component
+
+#### [MODIFY] [page.tsx](file:///c:/Users/Siraj%20Nur%20Ihrom/Documents/SNISHOP.ID/MARDOWN%20TO%20PDF/src/app/tools/pdf-to-word/page.tsx)
+
+Replace the broken [convertToWord](file:///c:/Users/Siraj%20Nur%20Ihrom/Documents/SNISHOP.ID/MARDOWN%20TO%20PDF/src/app/tools/pdf-to-word/page.tsx#33-107) function:
+
+**Before (broken):**
+```typescript
+// Joins ALL text into one flat string per page
+const pageText = textContent.items
+    .map((item: any) => item.str)
+    .join(" ");
+// Creates ONE paragraph with ALL text
+new Paragraph({ children: [new TextRun({ text: pageText })] })
+```
+
+**After (smart reconstruction):**
+```typescript
+// Uses the engine to reconstruct structured content
+const pageContent = reconstructPageLayout(textContent, styles, viewport);
+// Creates properly formatted paragraphs with styles
+const paragraphs = buildDocxParagraphs(pageContent);
+```
+
+Additional improvements:
+- Multi-stage progress: `Reading PDF → Analyzing Layout → Building Document`
+- Better error messages for scanned/image-only PDFs
+- Font family mapping for common fonts (Times New Roman, Arial, etc.)
+
+---
+
+## What This Will Fix
+
+| Issue | Before | After |
+|---|---|---|
+| Text structure | One blob per page | Proper paragraphs with line breaks |
+| Bold/Italic | Lost | Preserved via font detection |
+| Headings | Mixed into body text | Detected as H1/H2/H3 by font size |
+| Lists | Flattened | Recognized bullet/numbered items |
+| Tables | Random numbers | Text grouped by position (best-effort) |
+| Page breaks | None | Clean page separation |
+| Font sizes | All 12pt | Mapped from PDF metadata |
+
+> [!IMPORTANT]
+> This is a **client-side** solution using existing dependencies (`pdfjs-dist` + `docx`). No new packages needed. No server-side processing. Works within Vercel's serverless limits.
+
+## Limitations (Transparent)
+
+- **Images**: Cannot be embedded (pdfjs renders to canvas but extracting individual images client-side is extremely complex)
+- **Complex tables**: Will be best-effort text positioning, not Word table objects
+- **Exact font matching**: Will use closest available font family
+- **Scanned PDFs**: Will produce empty output (OCR tool should be used instead)
+
+---
+
+## Verification Plan
+
+### Build Test
+```bash
+npm run build  # Must exit with code 0
+```
+
+### Functional Test
+1. Convert a multi-page PDF with headings, bold text, and paragraphs
+2. Open resulting .docx in Microsoft Word
+3. Verify text content is readable and properly structured
+4. Verify bold/italic formatting is preserved
+5. Verify headings are detected correctly
