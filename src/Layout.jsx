@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef, Suspense, useMemo } from "react";
+import Lenis from 'lenis';
+import 'lenis/dist/lenis.css';
 import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import ErrorBoundary from '@/components/utils/ErrorBoundary';
@@ -275,6 +277,34 @@ export default function Layout({ children, currentPageName }) {
     document.documentElement.className = theme;
     document.body.className = theme;
   }, [theme]);
+
+  // ✅ INITIALIZE LENIS SMOOTH SCROLLING
+  useEffect(() => {
+    if (!isPublicPage) return;
+
+    console.log('🚀 LENIS: Initializing smooth scroll');
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      infinite: false,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      console.log('🛑 LENIS: Destroying smooth scroll');
+      lenis.destroy();
+    };
+  }, [isPublicPage]);
 
   const loadMenuSettings = async () => {
     try {
