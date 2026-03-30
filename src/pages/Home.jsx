@@ -1702,7 +1702,7 @@ export default function HomePage() {
 
                     <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
                         <p className="text-[10px] text-white/20 font-bold uppercase tracking-[0.4em]">
-                            &copy; 2025 PT JAMUKITO INTERNATIONAL. THE SINGULARITY ARCHITECTED.
+                            &copy; 2025 PT JAMUKITO INTERNATIONAL. ALL RIGHTS RESERVED.
                         </p>
                         <div className="flex gap-10">
                             {['Privasi', 'Ketentuan', 'Cookies'].map((link) => (

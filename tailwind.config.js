@@ -5,8 +5,8 @@ module.exports = {
   theme: {
    	extend: {
   		fontFamily: {
-  			sans: ['Inter', 'sans-serif'],
-  			display: ['Outfit', 'sans-serif'],
+  			sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+  			display: ['"Plus Jakarta Sans"', 'sans-serif'],
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
