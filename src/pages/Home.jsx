@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useMemo, lazy, Suspense } from 'rea
 import { base44 } from '@/api/base44Client';
 import { appParams } from '@/lib/app-params';
 import { createPageUrl } from '@/utils';
+import { initialProducts } from '../data/initialProducts';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -23,7 +24,7 @@ export default function HomePage() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [activeService, setActiveService] = useState('spa');
     const [defaultCompany, setDefaultCompany] = useState(null);
-    const [liveProducts, setLiveProducts] = useState([]);
+    const [liveProducts, setLiveProducts] = useState(initialProducts);
     const [isLoadingProducts, setIsLoadingProducts] = useState(true);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [showProductDetail, setShowProductDetail] = useState(false);
@@ -493,8 +494,9 @@ export default function HomePage() {
     }, [jamuServices, spaServices, maduMinumanServices]);
 
     const handleProductClick = (product) => {
-        setSelectedProduct(product);
-        setShowProductDetail(true);
+        // Redirection to the live production site as requested by user
+        console.log('🔗 Redirecting to live production services page for:', product.name);
+        window.open('https://jamukitointernasional.base44.app/#services', '_blank');
     };
 
     const handleAddToCart = async (product) => {
@@ -1049,7 +1051,8 @@ export default function HomePage() {
 
                                                     {/* Image */}
                                                     <motion.div
-                                                        className={`relative overflow-hidden rounded-2xl shadow-2xl ${idx % 2 === 0 ? '' : 'md:col-start-2'}`}
+                                                        className={`relative overflow-hidden rounded-2xl shadow-2xl cursor-pointer ${idx % 2 === 0 ? '' : 'md:col-start-2'}`}
+                                                        onClick={() => handleProductClick(treatment)}
                                                         whileHover={{ scale: 1.02 }}
                                                         whileInView={{
                                                             x: idx % 2 === 0 ? [50, 0] : [-50, 0],
@@ -1089,7 +1092,10 @@ export default function HomePage() {
                                                                 {treatment.category}
                                                             </Badge>
                                                         }
-                                                        <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                                                        <h3 
+                                                            className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 cursor-pointer hover:text-green-800 transition-colors"
+                                                            onClick={() => handleProductClick(treatment)}
+                                                        >
                                                             {treatment.name}
                                                         </h3>
                                                         <p className="text-gray-600 text-lg mb-6 leading-relaxed">
@@ -1118,23 +1124,10 @@ export default function HomePage() {
                                                             <Button
                                                                 size="lg"
                                                                 className="bg-green-800 hover:bg-green-900 text-white px-8 py-6 text-lg shadow-lg"
-                                                                onClick={() => {
-                                                                    if (!treatment.price || !treatment.name) {
-                                                                        toast.error('Data produk tidak lengkap');
-                                                                        return;
-                                                                    }
-                                                                    handleAddToCart({
-                                                                        id: `service_${service.id}_${idx}`,
-                                                                        company_id: defaultCompany?.id || '694cc38feacdffcc010f0d60',
-                                                                        name: treatment.name,
-                                                                        price: treatment.price,
-                                                                        image_url: treatment.image,
-                                                                        category: treatment.category
-                                                                    });
-                                                                }}>
+                                                                onClick={() => handleProductClick(treatment)}>
 
-                                                                <ShoppingCart className="w-5 h-5 mr-2" />
-                                                                Tambah ke Keranjang
+                                                                <MessageSquare className="w-5 h-5 mr-2" />
+                                                                Pesan Layanan
                                                             </Button>
                                                         </motion.div>
                                                     </motion.div>
@@ -1236,11 +1229,11 @@ export default function HomePage() {
                                                             className="w-full bg-green-800 hover:bg-green-900 shadow-lg"
                                                             onClick={(e) => {
                                                                 e.stopPropagation();
-                                                                handleAddToCart(product);
+                                                                handleProductClick(product);
                                                             }}>
 
                                                             <ShoppingCart className="w-4 h-4 mr-2" />
-                                                            Tambah ke Keranjang
+                                                            Beli Sekarang
                                                         </Button>
                                                     </CardContent>
                                                 </Card>
@@ -1304,11 +1297,11 @@ export default function HomePage() {
                                                             className="w-full bg-green-800 hover:bg-green-900 shadow-lg"
                                                             onClick={(e) => {
                                                                 e.stopPropagation();
-                                                                handleAddToCart(product);
+                                                                handleProductClick(product);
                                                             }}>
 
                                                             <ShoppingCart className="w-4 h-4 mr-2" />
-                                                            Tambah ke Keranjang
+                                                            Beli Sekarang
                                                         </Button>
                                                     </motion.div>
                                                 </CardContent>
