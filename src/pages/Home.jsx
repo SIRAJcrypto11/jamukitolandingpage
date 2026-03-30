@@ -17,7 +17,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
 import heroPremium from '../assets/hero-premium.png';
 
-const ProductDetailModal = lazy(() => import('../components/shop/ProductDetailModal'));
+import ProductDetailModal from '../components/shop/ProductDetailModal';
 
 export default function HomePage() {
     const [user, setUser] = useState(null);
@@ -127,7 +127,7 @@ export default function HomePage() {
                     const configCompany = await base44.entities.Company.get(configCompanyId);
                     if (configCompany) {
                         targetCompany = configCompany;
-                        console.log('✅ METHOD 0: Success:', targetCompany.name);
+                        console.log('✅ METHOD 0: Success:', targetCompany?.name || 'JAMU KITO');
                     }
                 } catch (configError) {
                     console.warn('⚠️ Method 0 failed:', configError.message);
@@ -1714,7 +1714,7 @@ export default function HomePage() {
             </footer>
 
             {/* Product Detail Modal */}
-            <Suspense fallback={null}>
+            {showProductDetail && selectedProduct && (
                 <ProductDetailModal
                     product={selectedProduct}
                     isOpen={showProductDetail}
@@ -1725,7 +1725,7 @@ export default function HomePage() {
                     currentUser={user}
                     companyData={defaultCompany}
                 />
-            </Suspense>
+            )}
         </div>);
 
 }
