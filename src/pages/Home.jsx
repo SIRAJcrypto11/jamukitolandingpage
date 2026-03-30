@@ -451,7 +451,7 @@ export default function HomePage() {
                 title: 'Jamu Herbal Tradisional',
                 icon: Leaf,
                 color: 'from-green-700 to-emerald-700',
-                description: 'Produk jamu berkualitas tinggi dengan sertifikasi BPOM untuk kesehatan alami',
+                description: 'Pilihan produk jamu berkualitas tinggi dengan sertifikasi BPOM untuk kesehatan alami harian Anda',
                 treatments: jamuServices.map((p) => ({
                     name: p.name,
                     category: p.category,
@@ -466,7 +466,7 @@ export default function HomePage() {
                 title: 'Layanan Spa & Terapi',
                 icon: Droplet,
                 color: 'from-teal-600 to-cyan-600',
-                description: 'Nikmati berbagai layanan spa profesional dengan terapis berpengalaman',
+                description: 'Nikmati berbagai layanan spa dengan terapis profesional dan ramah langsung di tempat Anda',
                 treatments: spaServices.map((p) => ({
                     name: p.name,
                     category: p.category,
@@ -481,7 +481,7 @@ export default function HomePage() {
                 title: 'Madu & Minuman Serbuk',
                 icon: Coffee,
                 color: 'from-amber-600 to-orange-600',
-                description: 'Produk madu asli dan minuman serbuk herbal untuk kesehatan harian',
+                description: 'Produk madu asli pilihan dan minuman serbuk herbal praktis untuk kesejahteraan Anda',
                 treatments: maduMinumanServices.map((p) => ({
                     name: p.name,
                     category: p.category,
@@ -553,24 +553,24 @@ export default function HomePage() {
 
     const whyChooseUs = [
         {
+            icon: Users,
+            title: 'Terapis Ramah & Profesional',
+            desc: 'Tenaga ahli berpengalaman dan bersertifikat'
+        },
+        {
             icon: Award,
-            title: 'Tersertifikasi',
-            desc: 'BPOM, CPOTB, CPPOB'
+            title: 'Produk Tersertifikasi BPOM',
+            desc: 'Keamanan terjamin dengan standar BPOM, CPOTB, CPPOB'
         },
         {
-            icon: CheckCircle,
-            title: '100% Alami',
-            desc: 'Bahan pilihan berkualitas tinggi'
+            icon: Leaf,
+            title: 'Bahan Alami Berkualitas Tinggi',
+            desc: 'Seleksi bahan baku herbal terbaik dari alam'
         },
         {
-            icon: Shield,
-            title: 'Terpercaya',
-            desc: 'Sejak 2018'
-        },
-        {
-            icon: Heart,
-            title: 'Harga Terjangkau',
-            desc: 'Kualitas premium, harga bersahabat'
+            icon: MapPin,
+            title: 'Gratis Biaya Transportasi',
+            desc: 'Layanan kunjungan tanpa biaya tambahan'
         }];
 
 
@@ -790,25 +790,25 @@ export default function HomePage() {
                                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-8"
                             >
                                 <Sparkles className="w-4 h-4 text-amber-400" />
-                                <span className="text-emerald-400 text-xs font-bold uppercase tracking-[0.2em]">Pioneer Wellness Sejak 2018</span>
+                                <span className="text-emerald-400 text-xs font-bold uppercase tracking-[0.2em]">Since 2018 - Practical Healthy Living</span>
                             </motion.div>
 
                             <motion.h1 
-                                className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[0.9] mb-6 tracking-tighter"
+                                className="text-6xl md:text-8xl font-black text-white leading-[0.85] mb-6 tracking-tighter"
                                 style={{ fontFamily: 'Outfit, sans-serif' }}
                             >
-                                MODERN <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200">HERBAL</span> <br />
-                                LIFESTYLE.
+                                PT JAMUKITO <br />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-amber-400">INTERNATIONAL</span>
                             </motion.h1>
 
                             <motion.p 
-                                className="text-lg md:text-xl text-white/60 mb-10 max-w-lg leading-relaxed font-light"
+                                className="text-lg md:text-xl text-emerald-50/80 mb-10 leading-relaxed max-w-xl font-medium"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 0.6 }}
                             >
-                                Memadukan kearifan lokal jamu tradisional dengan standar internasional untuk solusi kesehatan modern yang elegan dan terpercaya.
+                                Jamu, Spa & Herbal Wellness. <br />
+                                <span className="italic font-light">"Your TRULY Solutions for Health & Wellness"</span>
                             </motion.p>
 
                             <motion.div 
@@ -948,13 +948,13 @@ export default function HomePage() {
                                 </span>
                             </div>
 
-                            <h2 className="text-4xl md:text-6xl font-display font-black text-gray-900 mb-8 leading-tight tracking-tighter">
-                                Modernisasi <span className="text-emerald-700 italic">Tradisi</span><br />
-                                Untuk Masa Depan.
+                            <h2 className="text-4xl md:text-6xl font-display font-black text-gray-900 mb-8 leading-[1.1] tracking-tighter">
+                                Membawa <span className="text-emerald-700 italic">Kearifan Lokal</span><br />
+                                ke Gaya Hidup Modern.
                             </h2>
 
-                            <p className="text-gray-600 mb-8 text-xl leading-relaxed font-light">
-                                PT Jamu Kito Internasional lahir dari keinginan luhur untuk membawa kearifan lokal jamu Indonesia ke tingkat dunia, menyelaraskan tradisi dengan inovasi modern.
+                            <p className="text-gray-600 mb-8 text-xl leading-relaxed font-light max-w-xl">
+                                PT Jamu Kito Internasional adalah perusahaan herbal modern yang berkomitmen menghadirkan kearifan obat tradisional Indonesia (jamu) ke dalam gaya hidup saat ini. Produk kami dirancang bagi mereka yang mencari keseimbangan — antara tradisi dan inovasi, alam dan sains.
                             </p>
 
                             <div className="grid sm:grid-cols-2 gap-8 mb-12">
@@ -965,9 +965,9 @@ export default function HomePage() {
                                     <div className="w-12 h-12 bg-emerald-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                         <Eye className="text-white w-6 h-6" />
                                     </div>
-                                    <h4 className="font-display font-black text-emerald-900 text-xl mb-3 tracking-tight">VISI KAMI</h4>
+                                    <h4 className="font-display font-black text-emerald-900 text-xl mb-3 tracking-tight">VISI</h4>
                                     <p className="text-emerald-800/70 text-sm leading-relaxed">
-                                        Menjadi duta global kesehatan herbal Indonesia yang berkelanjutan dan terpercaya.
+                                        Menjadi duta global kesehatan herbal Indonesia yang modern dan terpercaya.
                                     </p>
                                 </motion.div>
 
@@ -978,9 +978,9 @@ export default function HomePage() {
                                     <div className="w-12 h-12 bg-amber-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                         <Target className="text-white w-6 h-6" />
                                     </div>
-                                    <h4 className="font-display font-black text-amber-900 text-xl mb-3 tracking-tight">MISI KAMI</h4>
+                                    <h4 className="font-display font-black text-amber-900 text-xl mb-3 tracking-tight">MISI</h4>
                                     <p className="text-amber-800/70 text-sm leading-relaxed">
-                                        Melestarikan tradisi sembari memberdayakan petani lokal melalui proses modern yang akurat.
+                                        Melestarikan dan memodernisasi tradisi herbal Indonesia melalui inovasi berkelanjutan.
                                     </p>
                                 </motion.div>
                             </div>
@@ -1055,10 +1055,10 @@ export default function HomePage() {
                             Layanan Eksklusif
                         </Badge>
                         <h2 className="text-4xl md:text-6xl font-display font-black text-emerald-950 mb-6 tracking-tight leading-[1.1]">
-                            Kesehatan & <span className="text-amber-600">Kesejahteraan</span>
+                            Layanan & <span className="text-amber-600">Harga</span>
                         </h2>
-                        <p className="text-lg md:text-xl text-emerald-900/60 max-w-2xl mx-auto leading-relaxed">
-                            Pilihan layanan kesehatan tradisional yang dipadukan dengan teknik modern untuk hasil maksimal bagi tubuh Anda.
+                        <p className="text-lg md:text-xl text-emerald-900/60 max-w-2xl mx-auto leading-relaxed font-light">
+                            Pilihan lengkap untuk kesehatan dan kesejahteraan Anda. Kami menghadirkan solusi alami yang elegan untuk gaya hidup modern.
                         </p>
                     </motion.div>
 
