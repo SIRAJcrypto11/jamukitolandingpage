@@ -10,7 +10,8 @@ import {
     Leaf, Phone, Clock, MapPin, Star, CheckCircle, ArrowRight,
     Package, Coffee, Droplet, Heart, Users, Award, Shield,
     Menu, X, ChevronRight, MessageSquare, Mail, Sparkles,
-    BarChart2, ShoppingCart, Loader2, LayoutDashboard
+    BarChart2, ShoppingCart, Loader2, LayoutDashboard, Eye, Target,
+    Quote as QuoteIcon
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
