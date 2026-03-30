@@ -43,11 +43,11 @@ const getAppParamValue = (paramName, { defaultValue = undefined, removeFromUrl =
 
 const getAppParams = () => {
 	return {
-		appId: getAppParamValue("app_id", { defaultValue: import.meta.env.VITE_BASE44_APP_ID }),
-		serverUrl: getAppParamValue("server_url", { defaultValue: import.meta.env.VITE_BASE44_BACKEND_URL }),
+		appId: getAppParamValue("app_id", { defaultValue: import.meta.env.VITE_BASE44_APP_ID || "694cc3048109b291dcf39d6d" }),
+		serverUrl: getAppParamValue("server_url", { defaultValue: import.meta.env.VITE_BASE44_BACKEND_URL || "https://jamukitointernasional.base44.app/" }),
 		token: getAppParamValue("access_token", { removeFromUrl: true }),
 		fromUrl: getAppParamValue("from_url", { defaultValue: window.location.href }),
-		companyId: getAppParamValue("company_id", { defaultValue: import.meta.env.VITE_BASE44_COMPANY_ID }),
+		companyId: getAppParamValue("company_id", { defaultValue: import.meta.env.VITE_BASE44_COMPANY_ID || "694cc38feacdffcc010f0d60" }),
 		functionsVersion: getAppParamValue("functions_version"),
 	}
 }
