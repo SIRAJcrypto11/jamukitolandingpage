@@ -1,5 +1,5 @@
 import Home from './pages/Home';
-import __Layout from './Layout.jsx';
+import MinimalLayout from './components/MinimalLayout';
 
 export const PAGES = {
     "Home": Home,
@@ -8,5 +8,5 @@ export const PAGES = {
 export const pagesConfig = {
     mainPage: "Home",
     Pages: PAGES,
-    Layout: __Layout,
+    Layout: MinimalLayout,
 };
