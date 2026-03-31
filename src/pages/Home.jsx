@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { base44 } from '@/api/base44Client';
 import { appParams } from '@/lib/app-params';
 import { createPageUrl } from '@/utils';
@@ -10,10 +10,10 @@ import {
     Leaf, Phone, Clock, MapPin, Star, CheckCircle, ArrowRight,
     Package, Coffee, Droplet, Heart, Users, Award, Shield,
     Menu, X, ChevronRight, MessageSquare, Mail, Sparkles,
-    ShoppingCart,
+    ShoppingCart, LayoutDashboard, Eye, Target,
     Quote as QuoteIcon
 } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import bgJamukito from '../assets/bg  jamukito.jpg';
 
