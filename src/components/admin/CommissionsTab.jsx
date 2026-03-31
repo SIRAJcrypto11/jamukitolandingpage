@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Commission } from '@/entities/Commission';
 import { User } from '@/entities/User';
 import { Notification } from '@/entities/Notification';

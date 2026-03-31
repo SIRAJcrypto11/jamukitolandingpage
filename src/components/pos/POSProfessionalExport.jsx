@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -15,7 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Download, FileSpreadsheet, FileText, ShoppingCart, Calendar } from 'lucide-react';
+import { FileSpreadsheet, FileText, ShoppingCart, Calendar } from 'lucide-react';
 import { format, startOfMonth, endOfMonth, startOfYear, endOfYear, startOfWeek, endOfWeek } from 'date-fns';
 import { id } from 'date-fns/locale';
 import { toast } from 'sonner';

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { useState, useEffect, useMemo } from 'react';
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -10,11 +10,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import {
   Loader2, ClipboardList, Send, Users, CheckCircle2, Clock, XCircle,
-  AlertCircle, Search, Filter, TrendingUp, Calendar, Eye, ChevronDown,
+  AlertCircle, Search, Filter, Calendar, Eye, ChevronDown,
   ChevronUp, RefreshCw, UserCheck, BookOpen, FileText
 } from "lucide-react";
 import { base44 } from '@/api/base44Client';
-import { format, isToday, parseISO, startOfDay, subDays } from 'date-fns';
+import { format, isToday, subDays } from 'date-fns';
 import { id as localeId } from 'date-fns/locale';
 
 const ATTENDANCE_OPTIONS = [

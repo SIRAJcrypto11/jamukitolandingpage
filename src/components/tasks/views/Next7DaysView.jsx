@@ -1,8 +1,8 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { format, addDays, isToday, isTomorrow, startOfDay, endOfDay } from 'date-fns';
 import { id } from 'date-fns/locale';
-import { Calendar, Plus, Loader2, X } from 'lucide-react';
+import { Plus, Loader2, X } from 'lucide-react';
 import { Droppable, Draggable } from '@hello-pangea/dnd';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';

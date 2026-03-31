@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import TaskDetailModal from './TaskDetailModal';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Plus, Calendar, GripVertical, Flag } from 'lucide-react';
+import { Plus, Calendar, GripVertical } from 'lucide-react';
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
 import { Task } from '@/entities/Task';
 import { User as UserEntity } from '@/entities/User';
 import { toast } from 'sonner';
-import { isAfter, isPast } from 'date-fns';
+import { isPast } from 'date-fns';
 
 const priorityConfig = {
   low: { color: 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300', dot: 'bg-gray-400', label: 'Rendah' },

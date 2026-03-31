@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Sparkles, Loader2, Lightbulb, Target, TrendingUp } from 'lucide-react';
+import { Sparkles, Loader2, Lightbulb, Target } from 'lucide-react';
 import { toast } from 'sonner';
 
 /**

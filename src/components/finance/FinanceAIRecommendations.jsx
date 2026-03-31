@@ -1,10 +1,9 @@
-import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
-import { InvokeLLM } from '@/api/integrations';
-import { TrendingUp, AlertCircle, Lightbulb, Loader2, RefreshCw, BarChart as BarChartIcon, LineChart as LineChartIcon, Send, Sparkles } from 'lucide-react';
+import { TrendingUp, AlertCircle, Lightbulb, Loader2, RefreshCw, BarChart as BarChartIcon, Send, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { format, startOfMonth, subMonths, isAfter } from 'date-fns';

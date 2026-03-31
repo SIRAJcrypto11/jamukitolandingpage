@@ -1,9 +1,7 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { format, parseISO } from 'date-fns';
-import { id } from 'date-fns/locale';
 import { Droppable, Draggable } from '@hello-pangea/dnd';
-import { CheckSquare, Calendar, Clock, Plus, Loader2, X } from 'lucide-react';
+import { CheckSquare, Plus, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';

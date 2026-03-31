@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Voucher } from '@/entities/Voucher';
 import { VoucherUsage } from '@/entities/VoucherUsage';
 import { User } from '@/entities/User';
@@ -14,7 +14,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Plus, Edit, Trash2, CalendarIcon, Tag, Copy, Eye, BarChart3 } from 'lucide-react';
+import { Plus, Edit, Trash2, CalendarIcon, Tag, Copy, BarChart3 } from 'lucide-react';
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
 import { toast } from 'sonner';

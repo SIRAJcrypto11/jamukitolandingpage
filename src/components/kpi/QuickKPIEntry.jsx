@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
-import { Loader2, CheckSquare, Sparkles, Zap, FileText, DollarSign } from 'lucide-react';
+import { Loader2, CheckSquare, Sparkles, Zap, FileText } from 'lucide-react';
 import { toast } from 'sonner';
-import { format } from 'date-fns';
 
 export default function QuickKPIEntry({ employees, companyId, period, onSuccess }) {
   const [templates, setTemplates] = useState([]);

@@ -1,33 +1,23 @@
-import React, { useState, useEffect, useCallback, useRef, Suspense, useMemo } from "react";
+import React, { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import ErrorBoundary from '@/components/utils/ErrorBoundary';
 import NetworkDetector from '@/components/utils/NetworkDetector';
-import LoadingFallback from '@/components/utils/LoadingFallback';
 import ServiceWorkerRegistration from '@/components/utils/ServiceWorkerRegistration';
 import AuthRecovery from '@/components/utils/AuthRecovery';
 import CorsDebugger from '@/components/utils/CorsDebugger';
 import DeviceCompatibility from '@/components/utils/DeviceCompatibility';
 import { User } from "@/entities/User";
 import { Company } from "@/entities/Company";
-import { CompanyMember } from "@/entities/CompanyMember";
-import { Workspace } from "@/entities/Workspace";
-import { WorkspaceMember } from "@/entities/WorkspaceMember";
-import { Task } from "@/entities/Task";
-import { Note } from "@/entities/Note";
 import { ReferralCode } from "@/entities/ReferralCode";
-import { withRetry } from '@/components/utils/apiHelpers';
-import cleanupOrphanedCompanyReferences from '@/components/utils/dataCleanup';
-import { safeGetCompany, safeFilterCompanies } from '@/components/utils/safeCompanyLoader';
-import { cachedRequest, invalidateCache } from '@/components/utils/requestManager';
+import { cachedRequest } from '@/components/utils/requestManager';
 import InvitationHandler from './components/company/InvitationHandler';
 import CompanySwitcher from './components/erp/CompanySwitcher';
 import LowStockNotifier from './components/inventory/LowStockNotifier';
 import SubscriptionSync from './components/layout/SubscriptionSync';
 import MembershipExpiryChecker from './components/layout/MembershipExpiryChecker';
-import MembershipBanner from './components/layout/MembershipBanner';
 import ExpiryNotificationModal from './components/layout/ExpiryNotificationModal';
 import ShoppingCartIcon from './components/layout/ShoppingCartIcon';
 import {
@@ -45,7 +35,6 @@ import {
   Shield,
   Wallet,
   Star,
-  Search,
   X,
   Loader2,
   ShoppingCart,
@@ -69,20 +58,14 @@ import {
   Boxes,
   DollarSign,
   Goal,
-  Building2,
   Factory,
-  ClipboardList,
-  Truck,
   Award,
-  GraduationCap,
-  FileCheck,
-  Zap,
   Sun,
   Moon,
   Smartphone } from
 
 "lucide-react";
-import { base44 } from '@/api/base44Client';
+import { base44, DEFAULT_COMPANY_ID, DEFAULT_APP_ID } from '@/api/base44Client';
 import {
   Button } from
 
@@ -105,8 +88,7 @@ import NotificationBell from "./components/layout/NotificationBell";
 import TaskNotificationChecker from "./components/layout/TaskNotificationChecker";
 import AddonPurchaseModal from "./components/pricing/AddonPurchaseModal";
 import ReferralCodeModal from "./components/referral/ReferralCodeModal";
-import { format, differenceInDays } from "date-fns";
-import { id } from "date-fns/locale";
+import { differenceInDays } from "date-fns";
 import { toast } from "sonner";
 
 function useDebounce(value, delay) {
@@ -141,14 +123,6 @@ const storageLimits = {
   enterprise: 20000
 };
 
-const companyLimits = {
-  free: 0,
-  pro: 0,
-  business: 3,
-  advanced: 10,
-  enterprise: 20
-};
-
 const trialInfo = {
   free: { name: 'Pro', duration: 7 },
   pro: { name: 'Advanced', duration: 14 },
@@ -157,28 +131,10 @@ const trialInfo = {
   enterprise: { name: 'Enterprise', duration: 14 }
 };
 
-const getGreeting = () => {
-  const hour = new Date().getHours();
-  if (hour < 12) return "Selamat Pagi";
-  if (hour < 15) return "Selamat Siang";
-  if (hour < 18) return "Selamat Sore";
-  return "Selamat Malam";
-};
-
 const publicPagesList = ["Home", "Pricing"];
 
-const warmUpCache = async (currentUser) => {
-  if (!currentUser) return;
-  try {
-    await cachedRequest('WorkspaceMember', 'filter', { user_id: currentUser.email });
-    await new Promise((r) => setTimeout(r, 1000));
-    await cachedRequest('CompanyMember', 'filter', { user_email: currentUser.email, status: 'active' });
-    await new Promise((r) => setTimeout(r, 1000));
-    await cachedRequest('Task', 'filter', { created_by: currentUser.email, status: { '$ne': 'done' } });
-  } catch (error) {
-    console.warn("Cache warm-up failed:", error);
-  }
-};
+
+
 
 export default function Layout({ children, currentPageName }) {
   const location = useLocation();
@@ -237,7 +193,7 @@ export default function Layout({ children, currentPageName }) {
           const fullData = JSON.parse(storedCompanyData);
           console.log('✅ PERSISTENT: Full company data restored');
           return fullData;
-        } catch (e) {
+        } catch (_e) {
           console.warn('⚠️ Failed to parse full company data');
         }
       }
@@ -391,18 +347,18 @@ export default function Layout({ children, currentPageName }) {
         const persistentUserData = localStorage.getItem('SNISHOP_USER_AUTH');
         if (persistentUserData) {
           try {
-            const { user: persistentUser, cachedAt } = JSON.parse(persistentUserData);
+            const { user: cachedUser, cachedAt } = JSON.parse(persistentUserData);
             const cacheAge = Date.now() - cachedAt;
 
             // ✅ Extended cache - 24 hours instead of 5 minutes
-            if (cacheAge < 86400000 && persistentUser) {
+            if (cacheAge < 86400000 && cachedUser) {
               console.log('✅ AUTH: Using persistent cache (age:', Math.floor(cacheAge / 1000 / 60), 'minutes)');
-              setUser(persistentUser);
+              setUser(cachedUser);
 
               // ✅ Refresh in background (non-blocking)
               setTimeout(() => {
                 User.me().then((freshUser) => {
-                  if (freshUser && JSON.stringify(freshUser) !== JSON.stringify(persistentUser)) {
+                  if (freshUser && JSON.stringify(freshUser) !== JSON.stringify(cachedUser)) {
                     setUser(freshUser);
                     localStorage.setItem('SNISHOP_USER_AUTH', JSON.stringify({
                       user: freshUser,
@@ -415,7 +371,6 @@ export default function Layout({ children, currentPageName }) {
               // ✅ AUTO-REGISTER as customer to default company (IMMEDIATE)
               setTimeout(async () => {
                 try {
-                  const DEFAULT_COMPANY_ID = '694cc38feacdffcc010f0d60';
                   const existingMember = await base44.entities.CompanyMember.filter({
                     company_id: DEFAULT_COMPANY_ID,
                     user_email: cachedUser.email

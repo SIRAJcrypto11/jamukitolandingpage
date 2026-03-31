@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Payroll } from '@/entities/Payroll';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -12,7 +12,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { DollarSign, Plus, Download, CheckCircle } from 'lucide-react';
+import { Plus, CheckCircle } from 'lucide-react';
 import { toast } from 'sonner';
 import PayrollForm from './PayrollForm';
 

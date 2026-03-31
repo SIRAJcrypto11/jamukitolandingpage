@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { HomeSettings } from '@/entities/HomeSettings';
 import { UploadFile } from '@/integrations/Core';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Home, Plus, Trash, Image as ImageIcon, Users as UsersIcon } from 'lucide-react';
+import { Home, Plus, Trash } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function HomeSettingsTab() {

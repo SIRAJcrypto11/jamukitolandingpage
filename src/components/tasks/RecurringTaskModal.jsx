@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,8 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { format } from 'date-fns';
-import { Calendar as CalendarIcon, Repeat, Clock } from 'lucide-react';
-import { Checkbox } from '@/components/ui/checkbox';
+import { Calendar as CalendarIcon, Repeat } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function RecurringTaskModal({ open, onOpenChange, onSave, initialData, workspaceId }) {

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { 
-  CheckCircle, XCircle, AlertTriangle, Smartphone, Bluetooth, 
-  Power, Settings, RefreshCw, Wifi, Volume2
+  CheckCircle, XCircle, AlertTriangle, Bluetooth, 
+  Power, RefreshCw, Wifi, Volume2
 } from 'lucide-react';
 
 export default function BluetoothTroubleshoot() {

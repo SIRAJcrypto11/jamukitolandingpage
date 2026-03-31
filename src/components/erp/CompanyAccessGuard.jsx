@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Lock, AlertCircle } from 'lucide-react';
+import { Lock } from 'lucide-react';
 import { Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { 
   hasCompanyAccess, 
   getCompanyRole, 
-  getCompanyPermissions,
-  hasPermission 
+  getCompanyPermissions 
 } from '@/components/utils/companyAccessControl';
 
 /**

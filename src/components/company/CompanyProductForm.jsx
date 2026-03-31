@@ -1,12 +1,12 @@
 // CompanyProductForm - existing file, no changes needed
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { X, Upload, Loader2, Save, MapPin, Plus, Trash2, Package, Scan, AlertTriangle, Eye, EyeOff } from 'lucide-react';
+import { X, Loader2, Save, MapPin, Plus, Package, Scan, AlertTriangle, Eye, EyeOff } from 'lucide-react';
 import { toast } from 'sonner';
 
 import BarcodeScanner from '@/components/pos/BarcodeScanner';

@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import { Task } from '@/entities/Task';
-import { User } from '@/entities/User';
 import { Notification } from '@/entities/Notification';
 
 const NotificationService = ({ user }) => {

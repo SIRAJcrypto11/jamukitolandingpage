@@ -1,4 +1,3 @@
-import React from 'react';
 import NoteItem from './NoteItem';
 import { AnimatePresence } from 'framer-motion';
 

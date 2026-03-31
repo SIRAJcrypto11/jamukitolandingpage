@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { CheckCircle2, Circle, Clock, Loader2 } from 'lucide-react';
 import { Task } from '@/entities/Task';

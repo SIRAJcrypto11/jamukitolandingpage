@@ -1,8 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Company } from '@/entities/Company';
-import { CompanyMember } from '@/entities/CompanyMember';
-import { User } from '@/entities/User';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';

@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Users, FileText, CheckSquare, Settings, Calendar } from "lucide-react";
+import { Users, FileText, CheckSquare } from "lucide-react";
 import { createPageUrl } from "@/utils";
 import { motion } from "framer-motion";
 

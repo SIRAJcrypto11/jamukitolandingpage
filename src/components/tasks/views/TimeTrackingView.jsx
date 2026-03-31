@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Pause, Square, Clock, BarChart3, Calendar } from 'lucide-react';
+import { Play, Pause, Square, Clock, BarChart3 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { format, formatDuration, intervalToDuration } from 'date-fns';
-import { id } from 'date-fns/locale';
+import { format, intervalToDuration } from 'date-fns';
 
-import TaskItem from '../TaskItem';
 
 export default function TimeTrackingView({ 
   tasks, 

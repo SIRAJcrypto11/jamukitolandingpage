@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -10,8 +10,8 @@ import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import {
-    Plus, Edit, Trash2, AlertTriangle, TrendingUp, Wallet,
-    ArrowUpRight, ArrowDownLeft, Target, Briefcase, CheckCircle, Clock
+    Plus, Edit, Trash2, TrendingUp, Wallet,
+    ArrowUpRight, ArrowDownLeft, Target, Briefcase, Clock
 } from 'lucide-react';
 import { format, startOfMonth, endOfMonth, startOfYear, endOfYear } from 'date-fns';
 import { id } from 'date-fns/locale';

@@ -1,15 +1,12 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
-  Target, TrendingUp, TrendingDown, Minus, Award, RefreshCw, ExternalLink,
-  CheckCircle2, Clock, Zap, Users, BarChart2, Star, AlertCircle, ChevronDown, ChevronUp
+  Target, TrendingUp, TrendingDown, Minus, RefreshCw, ExternalLink, Zap, Users, BarChart2, Star, AlertCircle, ChevronDown, ChevronUp
 } from 'lucide-react';
 import { format } from 'date-fns';
 import { id as localeId } from 'date-fns/locale';

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -12,7 +12,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { UserPlus, Mail, Loader2, XCircle, Settings, RefreshCw } from 'lucide-react';
 import { toast } from 'sonner';
 import { invalidateCache } from '@/components/utils/requestManager';
-import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 
 

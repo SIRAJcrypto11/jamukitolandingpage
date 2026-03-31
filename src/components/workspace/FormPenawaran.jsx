@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { useState, useEffect, useMemo } from 'react';
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
-import { Loader2, Send, Tag, Users, UserPlus, Package, Search, Filter, Eye, ChevronDown, ChevronUp, TrendingUp, CheckCircle2, XCircle, Clock, RefreshCw, AlertCircle } from "lucide-react";
+import { Loader2, Send, Tag, Users, UserPlus, Package, Search, Filter, Eye, ChevronDown, ChevronUp, TrendingUp, CheckCircle2, Clock, RefreshCw, AlertCircle } from "lucide-react";
 import { base44 } from '@/api/base44Client';
 import { format, isToday } from 'date-fns';
 import { id as localeId } from 'date-fns/locale';

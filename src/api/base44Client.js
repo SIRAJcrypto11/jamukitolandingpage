@@ -11,3 +11,6 @@ export const base44 = createClient({
   functionsVersion,
   requiresAuth: false
 });
+
+export const DEFAULT_COMPANY_ID = appParams.companyId;
+export const DEFAULT_APP_ID = appParams.appId;

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Clock, Coffee, Zap, Home, Star, TrendingUp } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { format, differenceInMinutes, differenceInHours } from 'date-fns';
+import { format, differenceInMinutes } from 'date-fns';
 import { id } from 'date-fns/locale';
 
 export default function LiveWorkTimer({ clockInTime, settings }) {

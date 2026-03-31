@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function POSTransferDropdown({ item, locations, selectedLocation, getProductStock, getStockAtLocation, updateCartItemTransferLocation }) {
   const [availableLocs, setAvailableLocs] = useState([]);

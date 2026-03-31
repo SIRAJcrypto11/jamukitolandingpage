@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -8,8 +8,8 @@ import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import {
-  Plus, Edit, Trash2, Save, X, Store, ShoppingCart, Smartphone,
-  Globe, Package, Truck, Users, RefreshCw, GripVertical, CheckCircle
+  Plus, Edit, Trash2, Save, Store, Smartphone,
+  Globe, RefreshCw, GripVertical, CheckCircle
 } from 'lucide-react';
 import { toast } from 'sonner';
 

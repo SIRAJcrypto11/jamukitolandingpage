@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -8,11 +8,11 @@ import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import {
-  CreditCard, Plus, Settings, CheckCircle, XCircle, Eye, EyeOff,
+  CreditCard, Plus, Settings, Eye, EyeOff,
   Save, Trash2, AlertTriangle, Loader2, Copy, Lock
 } from 'lucide-react';
 import { toast } from 'sonner';
-import { getGatewayInfo, validateGatewayConfig } from '@/components/utils/paymentGatewayHelper';
+import { validateGatewayConfig } from '@/components/utils/paymentGatewayHelper';
 
 const AVAILABLE_GATEWAYS = [
   {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { PricingPlan } from '@/entities/PricingPlan';
 import { AddonPackage } from '@/entities/AddonPackage';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,7 +11,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '
 import { Tabs, TabsList, TabsContent, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { toast } from 'sonner';
-import { PlusCircle, Edit, Loader2, Plus, Trash2, X, Save, Info, DollarSign, Zap, Building2 } from 'lucide-react';
+import { Edit, Loader2, Plus, Trash2, X, Save, Info, DollarSign, Zap, Building2 } from 'lucide-react';
 
 export default function PricingSettingsTab() {
   const [plans, setPlans] = useState([]);

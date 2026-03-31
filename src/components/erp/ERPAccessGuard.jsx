@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Building2, Lock, Crown, Users, Loader2, AlertTriangle } from 'lucide-react';
+import { Building2, Lock, Crown, Loader2, AlertTriangle } from 'lucide-react';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import { differenceInDays } from 'date-fns';

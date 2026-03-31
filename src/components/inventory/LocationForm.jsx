@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
-import { Loader2, MapPin, Building2, User, Phone, Crown } from 'lucide-react';
+import { Loader2, MapPin, Building2, User, Crown } from 'lucide-react';
 
 export default function LocationForm({ location, companyId, onSave, onClose }) {
   const [formData, setFormData] = useState({

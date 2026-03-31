@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { InvokeLLM } from '@/integrations/Core';
 import { Task } from '@/entities/Task';
 import { Note } from '@/entities/Note';
@@ -8,7 +8,7 @@ import { Workspace } from '@/entities/Workspace';
 import { User } from '@/entities/User';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Loader2, Send, Mic, FileUp, Video, Sparkles, AlertCircle, ArrowLeft, Globe, WifiOff } from 'lucide-react';
+import { Loader2, Send, Mic, Sparkles, ArrowLeft, Globe, WifiOff } from 'lucide-react';
 import MessageBubble from './MessageBubble';
 import { toast } from 'sonner';
 

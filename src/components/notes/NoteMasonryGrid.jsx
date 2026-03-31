@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import NoteItem from './NoteItem';
 
 const NoteMasonryGrid = memo(({ notes, labels, onNoteSelect, onPinToggle, onArchiveToggle, onDelete, onAddLabel, onRemoveLabel }) => {

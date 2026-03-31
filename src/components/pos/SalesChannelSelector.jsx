@@ -1,4 +1,3 @@
-import React from 'react';
 
 export const SALES_CHANNELS = [
   { id: 'OFFLINE', name: 'Offline Store', icon: '🏪', color: 'bg-gray-600' },

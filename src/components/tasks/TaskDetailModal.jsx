@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -10,7 +10,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   Paperclip, Upload, X, Calendar as CalendarIcon, User, Clock,
-  Edit, Save, MessageSquare, History, Plus } from
+  Edit, Save, MessageSquare, History } from
 'lucide-react';
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';

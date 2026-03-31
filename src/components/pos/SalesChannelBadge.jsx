@@ -1,4 +1,3 @@
-import React from 'react';
 import { SALES_CHANNELS } from './SalesChannelSelector';
 
 export default function SalesChannelBadge({ channelId, className = '' }) {

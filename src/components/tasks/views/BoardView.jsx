@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, memo, useRef, useEffect } from 'react';
+import { useState, useMemo, useCallback, memo, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { Plus, MoreHorizontal, X } from 'lucide-react';

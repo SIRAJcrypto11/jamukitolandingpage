@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { whatsappSendMessage } from '@/functions/whatsappSendMessage';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Smartphone, Send, Loader2, AlertCircle, Users } from 'lucide-react';
+import { Smartphone, Send, Loader2, AlertCircle } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function CustomerBlastMessage({ customers, isOpen, onClose, selectedCompany, currentUser }) {

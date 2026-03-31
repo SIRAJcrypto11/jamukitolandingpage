@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { User } from '@/entities/User';
 import { UpgradeRequest } from '@/entities/UpgradeRequest';
 import { Notification } from '@/entities/Notification';

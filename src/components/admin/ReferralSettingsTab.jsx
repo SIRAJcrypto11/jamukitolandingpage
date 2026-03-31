@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ReferralSetting } from '@/entities/ReferralSetting';
@@ -7,7 +7,6 @@ import { Loader2, DollarSign, Save, Edit, Settings, Plus, Info } from 'lucide-re
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
 const DEFAULT_PLANS = ['free', 'pro', 'business', 'advanced', 'enterprise'];

@@ -1,10 +1,9 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { Task } from '@/entities/Task';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Plus, Search, Filter, CheckSquare, ListFilter, SortAsc } from 'lucide-react';
+import { Plus, Search, CheckSquare, ListFilter, SortAsc } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import TaskItem from '../tasks/TaskItem';
 import TaskForm from '../tasks/TaskForm';

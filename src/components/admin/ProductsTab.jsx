@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { DigitalProduct } from '@/entities/DigitalProduct';
 import { UploadFile } from '@/integrations/Core';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,7 +11,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Plus, Edit, Trash, Package, X, Image as ImageIcon } from 'lucide-react';
+import { Plus, Edit, Trash, X, Image as ImageIcon } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function ProductsTab({ products, onUpdate }) {

@@ -1,20 +1,20 @@
-import React, { useState, useEffect, useRef, useMemo, lazy, Suspense } from 'react';
+import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { appParams } from '@/lib/app-params';
 import { createPageUrl } from '@/utils';
 import { initialProducts } from '../data/initialProducts';
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from '@/components/ui/card';
+
 import { Badge } from '@/components/ui/badge';
 import {
     Leaf, Phone, Clock, MapPin, Star, CheckCircle, ArrowRight,
     Package, Coffee, Droplet, Heart, Users, Award, Shield,
     Menu, X, ChevronRight, MessageSquare, Mail, Sparkles,
-    BarChart2, ShoppingCart, Loader2, LayoutDashboard, Eye, Target,
+    ShoppingCart,
     Quote as QuoteIcon
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import heroPremium from '../assets/hero-premium.png';
+import { motion } from 'framer-motion';
+
 import bgJamukito from '../assets/bg  jamukito.jpg';
 
 import ProductDetailModal from '../components/shop/ProductDetailModal';
@@ -301,7 +301,7 @@ export default function HomePage() {
             } else {
                 setUser(null);
             }
-        } catch (e) {
+        } catch {
             setUser(null);
         } finally {
             setIsCheckingAuth(false);
@@ -313,7 +313,7 @@ export default function HomePage() {
             const cartItems = await base44.entities.ShoppingCart.filter({ user_id: userId });
             const totalItems = (cartItems || []).reduce((sum, item) => sum + (item.quantity || 1), 0);
             setCartItemCount(totalItems);
-        } catch (e) {
+        } catch {
             setCartItemCount(0);
         }
     };
@@ -799,24 +799,24 @@ export default function HomePage() {
                             transition={{ duration: 1, delay: 0.2 }}
                             className="space-y-4 mb-10"
                         >
-                            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black text-white leading-[0.9] tracking-tighter uppercase font-sans">
+                            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[0.9] tracking-tighter uppercase font-sans">
                                 PT JAMUKITO <br />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-emerald-200 to-amber-400">
                                     INTERNATIONAL
                                 </span>
                             </h1>
                             <div className="h-1 w-24 bg-gradient-to-r from-emerald-500 to-amber-500 mx-auto md:mx-0 rounded-full" />
-                            <p className="text-xl sm:text-2xl font-bold text-emerald-400/90 tracking-wide">
+                            <p className="text-lg sm:text-xl md:text-2xl font-bold text-emerald-400/90 tracking-wide">
                                 Jamu, Spa & Herbal Wellness
                             </p>
-                            <p className="text-lg sm:text-xl text-white/70 italic font-light leading-relaxed md:max-w-xl">
+                            <p className="text-base sm:text-lg md:text-xl text-white/70 italic font-light leading-relaxed md:max-w-xl">
                                 "Your TRULY Solutions for Health & Wellness"
                             </p>
                         </motion.div>
 
                         {/* CTA Actions */}
                         <motion.div 
-                            className="flex flex-col sm:flex-row gap-4 mb-20"
+                            className="flex flex-col sm:flex-row gap-4 mb-10 sm:mb-16 md:mb-20"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.6 }}
@@ -825,7 +825,7 @@ export default function HomePage() {
                                 variant="default"
                                 size="lg"
                                 onClick={handleGetStarted}
-                                className="bg-white hover:bg-emerald-50 text-green-900 px-12 py-8 text-lg font-extrabold rounded-2xl shadow-2xl transition-all hover:-translate-y-1 active:scale-95"
+                                className="bg-white hover:bg-emerald-50 text-green-900 px-8 py-5 sm:px-10 sm:py-6 md:px-12 md:py-7 text-base md:text-lg font-extrabold rounded-2xl shadow-2xl transition-all hover:-translate-y-1 active:scale-95"
                             >
                                 Pesan Sekarang
                             </Button>
@@ -833,7 +833,7 @@ export default function HomePage() {
                             <Button 
                                 variant="outline"
                                 size="lg"
-                                className="bg-white/5 border-white/20 text-white px-10 py-8 text-lg font-bold rounded-2xl backdrop-blur-xl hover:bg-white/10 hover:border-white/40 transition-all flex items-center gap-3"
+                                className="bg-white/5 border-white/20 text-white px-8 py-5 sm:px-10 sm:py-6 md:px-12 md:py-7 text-base md:text-lg font-bold rounded-2xl backdrop-blur-xl hover:bg-white/10 hover:border-white/40 transition-all flex items-center gap-3"
                                 onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
                             >
                                 Lihat Layanan
@@ -856,14 +856,14 @@ export default function HomePage() {
                             ].map((item, idx) => (
                                 <div 
                                     key={idx}
-                                    className="group p-6 rounded-3xl bg-white/5 backdrop-blur-sm border border-white/5 hover:border-emerald-500/30 transition-all duration-500 text-left flex items-start gap-4"
+                                    className="group p-4 sm:p-5 md:p-6 rounded-3xl bg-white/5 backdrop-blur-sm border border-white/5 hover:border-emerald-500/30 transition-all duration-500 text-left flex items-start gap-4"
                                 >
                                     <div className="p-3 rounded-2xl bg-emerald-500/10 text-emerald-400 group-hover:scale-110 transition-transform">
                                         <item.icon className="w-6 h-6" />
                                     </div>
                                     <div>
-                                        <h3 className="text-white font-bold text-sm sm:text-base leading-tight">{item.title}</h3>
-                                        <p className="text-emerald-400/60 text-xs sm:text-sm font-medium">{item.desc}</p>
+                                        <h3 className="text-white font-bold text-xs sm:text-sm md:text-base leading-tight">{item.title}</h3>
+                                        <p className="text-emerald-400/60 text-[10px] sm:text-xs md:text-sm font-medium">{item.desc}</p>
                                     </div>
                                 </div>
                             ))}
@@ -875,12 +875,12 @@ export default function HomePage() {
 
 
             {/* About Section - THE ESSENCE */}
-            <section id="about" className="py-32 bg-white relative overflow-hidden">
+            <section id="about" className="py-16 sm:py-24 md:py-32 bg-white relative overflow-hidden">
                 {/* Subtle Background Elements */}
                 <div className="absolute top-0 right-0 w-1/3 h-full bg-emerald-50/50 -skew-x-12 translate-x-1/2" />
                 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="grid lg:grid-cols-2 gap-20 items-center">
+                    <div className="grid lg:grid-cols-2 gap-10 sm:gap-16 md:gap-20 items-center">
                         <motion.div
                             initial={{ opacity: 0, x: -50 }}
                             whileInView={{ opacity: 1, x: 0 }}
@@ -894,18 +894,18 @@ export default function HomePage() {
                                 </span>
                             </div>
 
-                            <h2 className="text-4xl md:text-6xl font-display font-black text-gray-900 mb-8 leading-[1.1] tracking-tighter">
+                            <h2 className="text-3xl sm:text-4xl md:text-6xl font-display font-black text-gray-900 mb-8 leading-[1.1] tracking-tighter">
                                 Membawa <span className="text-emerald-700 italic">Kearifan Lokal</span><br />
                                 ke Gaya Hidup Modern.
                             </h2>
 
-                            <p className="text-gray-600 mb-8 text-xl leading-relaxed font-light max-w-xl">
+                            <p className="text-gray-600 mb-8 text-base sm:text-lg md:text-xl leading-relaxed font-light max-w-xl">
                                 PT. Jamu Kito Internasional is a modern herbal company committed to bringing the wisdom of Indonesian traditional medicine (jamu) into today's lifestyle. From handcrafted jamu recipes to modern herbal drinks, our products are designed for people who seek balance — between tradition and innovation, nature and science.
                             </p>
 
                             <div className="grid sm:grid-cols-2 gap-8 mb-12">
                                 <motion.div 
-                                    className="p-8 rounded-[2rem] bg-emerald-50 border border-emerald-100 hover:shadow-xl transition-all duration-500 group"
+                                    className="p-5 rounded-xl sm:p-6 sm:rounded-2xl md:p-8 md:rounded-[2rem] bg-emerald-50 border border-emerald-100 hover:shadow-xl transition-all duration-500 group"
                                     whileHover={{ y: -5 }}
                                 >
                                     <div className="w-12 h-12 bg-emerald-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
@@ -918,7 +918,7 @@ export default function HomePage() {
                                 </motion.div>
 
                                 <motion.div 
-                                    className="p-8 rounded-[2rem] bg-amber-50 border border-amber-100 hover:shadow-xl transition-all duration-500 group"
+                                    className="p-5 rounded-xl sm:p-6 sm:rounded-2xl md:p-8 md:rounded-[2rem] bg-amber-50 border border-amber-100 hover:shadow-xl transition-all duration-500 group"
                                     whileHover={{ y: -5 }}
                                 >
                                     <div className="w-12 h-12 bg-amber-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
@@ -934,7 +934,7 @@ export default function HomePage() {
                             <Button
                                 variant="default"
                                 size="lg"
-                                className="bg-emerald-900 hover:bg-emerald-950 text-white rounded-full px-10 py-7 text-lg font-bold shadow-2xl shadow-emerald-900/20 group"
+                                className="bg-emerald-900 hover:bg-emerald-950 text-white rounded-full px-6 py-5 sm:px-8 sm:py-6 md:px-10 md:py-7 text-base md:text-lg font-bold shadow-2xl shadow-emerald-900/20 group"
                                 onClick={handleGetStarted}
                             >
                                 Pelajari Lebih Lanjut
@@ -962,13 +962,13 @@ export default function HomePage() {
 
                             {/* Experience Badge - Glassmorphism */}
                             <motion.div
-                                className="absolute -bottom-10 -left-10 bg-white/80 backdrop-blur-2xl p-8 rounded-[2.5rem] shadow-2xl border border-white flex flex-col items-center justify-center"
+                                className="absolute -bottom-6 -left-4 p-5 sm:-bottom-8 sm:-left-6 sm:p-6 md:-bottom-10 md:-left-10 md:p-8 bg-white/80 backdrop-blur-2xl rounded-[1.5rem] sm:rounded-[2rem] md:rounded-[2.5rem] shadow-2xl border border-white flex flex-col items-center justify-center"
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 transition={{ delay: 0.5 }}
                                 whileHover={{ scale: 1.05, rotate: -2 }}
                             >
-                                <span className="text-5xl font-display font-black text-emerald-900 leading-none">2018</span>
+                                <span className="text-3xl sm:text-4xl md:text-5xl font-display font-black text-emerald-900 leading-none">2018</span>
                                 <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-amber-600 mt-2">ESTABLISHED</span>
                                 <div className="mt-4 flex gap-1">
                                     {[1, 2, 3, 4, 1].map((_, i) => (
@@ -985,7 +985,7 @@ export default function HomePage() {
             </section>
 
             {/* Services Section - Modernized */}
-            <section id="services" className="py-24 relative overflow-hidden bg-white">
+            <section id="services" className="py-16 sm:py-24 relative overflow-hidden bg-white">
                 {/* Background Decoration */}
                 <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-emerald-50/50 to-transparent pointer-events-none" />
                 <div className="absolute -right-24 top-48 w-96 h-96 bg-amber-200/20 rounded-full blur-3xl pointer-events-none" />
@@ -1004,22 +1004,22 @@ export default function HomePage() {
                         >
                             Wellness Selection
                         </Badge>
-                        <h2 className="text-5xl md:text-7xl font-sans font-black text-emerald-950 mb-8 tracking-tighter leading-[0.9]">
+                        <h2 className="text-4xl sm:text-5xl md:text-7xl font-sans font-black text-emerald-950 mb-6 sm:mb-8 tracking-tighter leading-[0.9]">
                             LAYANAN & <span className="text-amber-600">HARGA</span>
                         </h2>
-                        <p className="text-xl text-emerald-900/60 max-w-2xl mx-auto leading-relaxed font-light font-sans">
+                        <p className="text-base sm:text-xl text-emerald-900/60 max-w-2xl mx-auto leading-relaxed font-light font-sans">
                             Elegansi tradisional bertemu dengan kenyamanan modern. Temukan rangkaian layanan wellness eksklusif yang dirancang khusus untuk memulihkan energi dan vitalitas Anda secara alami.
                         </p>
                     </motion.div>
 
                     {/* Premium Category Tabs - Pill Style */}
-                    <div className="flex justify-center mb-20">
-                        <div className="inline-flex p-1.5 bg-white shadow-2xl shadow-emerald-900/5 rounded-full border border-emerald-100/50 backdrop-blur-xl">
+                    <div className="w-full overflow-x-auto scrollbar-hide mb-12 sm:mb-20 pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 flex sm:justify-center">
+                        <div className="inline-flex p-1.5 bg-white shadow-2xl shadow-emerald-900/5 rounded-full border border-emerald-100/50 backdrop-blur-xl shrink-0 min-w-max">
                             {services.map((service) => (
                                 <button
                                     key={service.id}
                                     onClick={() => setActiveService(service.id)}
-                                    className={`relative px-6 py-3 rounded-full text-sm font-bold transition-all duration-500 overflow-hidden ${
+                                    className={`relative px-4 sm:px-6 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-bold transition-all duration-500 overflow-hidden ${
                                         activeService === service.id 
                                         ? 'text-white' 
                                         : 'text-emerald-900/60 hover:text-emerald-900'
@@ -1052,7 +1052,7 @@ export default function HomePage() {
                                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}>
 
                                 {/* Header Card for Service */}
-                                <div className="mb-24 text-center max-w-3xl mx-auto">
+                                <div className="mb-16 sm:mb-24 text-center max-w-3xl mx-auto">
                                     <motion.div 
                                         initial={{ opacity: 0, scale: 0.5 }}
                                         animate={{ opacity: 1, scale: 1 }}
@@ -1062,12 +1062,12 @@ export default function HomePage() {
                                             damping: 20,
                                             delay: 0.2 
                                         }}
-                                        className="inline-flex items-center justify-center w-24 h-24 rounded-[2.5rem] bg-emerald-900 text-white shadow-2xl shadow-emerald-900/40 mb-10 -rotate-6 hover:rotate-0 transition-transform duration-700"
+                                        className="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 rounded-[2rem] sm:rounded-[2.5rem] bg-emerald-900 text-white shadow-2xl shadow-emerald-900/40 mb-8 sm:mb-10 -rotate-6 hover:rotate-0 transition-transform duration-700"
                                     >
-                                        <service.icon className="w-10 h-10" />
+                                        <service.icon className="w-8 h-8 sm:w-10 sm:h-10" />
                                     </motion.div>
-                                    <h3 className="text-4xl md:text-6xl font-sans font-black text-emerald-950 mb-6 tracking-tight leading-none uppercase">{service.title}</h3>
-                                    <p className="text-emerald-900/60 text-xl leading-relaxed font-light italic font-sans">{service.description}</p>
+                                    <h3 className="text-3xl sm:text-4xl md:text-6xl font-sans font-black text-emerald-950 mb-4 sm:mb-6 tracking-tight leading-none uppercase">{service.title}</h3>
+                                    <p className="text-emerald-900/60 text-base sm:text-xl leading-relaxed font-light italic font-sans">{service.description}</p>
                                 </div>
 
                                 {/* Treatments List */}
@@ -1085,7 +1085,7 @@ export default function HomePage() {
                                         <p className="text-emerald-900/60 font-medium italic">Layanan sedang dipersiapkan untuk Anda</p>
                                     </div>
                                 ) : (
-                                    <div className="space-y-32">
+                                    <div className="space-y-20 sm:space-y-32">
                                         {service.treatments.map((treatment, idx) => (
                                             <motion.div
                                                 key={idx}
@@ -1093,7 +1093,7 @@ export default function HomePage() {
                                                 whileInView={{ opacity: 1, y: 0 }}
                                                 viewport={{ once: true, margin: "-100px" }}
                                                 transition={{ duration: 0.8, delay: idx * 0.1 }}
-                                                className={`grid lg:grid-cols-2 gap-16 lg:gap-24 items-center ${idx % 2 === 0 ? '' : 'lg:grid-flow-dense'}`}
+                                                className={`grid lg:grid-cols-2 gap-10 sm:gap-16 lg:gap-24 items-center ${idx % 2 === 0 ? '' : 'lg:grid-flow-dense'}`}
                                             >
                                                 {/* Image Container - High End */}
                                                 <div className={`relative group ${idx % 2 === 0 ? '' : 'lg:col-start-2'}`}>
@@ -1140,12 +1140,12 @@ export default function HomePage() {
                                                             </span>
                                                         )}
                                                         <h3 
-                                                            className="text-4xl md:text-5xl font-display font-black text-emerald-950 mb-6 leading-tight cursor-pointer hover:text-emerald-700 transition-colors duration-300"
+                                                            className="text-3xl sm:text-4xl md:text-5xl font-display font-black text-emerald-950 mb-4 sm:mb-6 leading-tight cursor-pointer hover:text-emerald-700 transition-colors duration-300"
                                                             onClick={() => handleProductClick(treatment)}
                                                         >
                                                             {treatment.name}
                                                         </h3>
-                                                        <p className="text-lg text-emerald-900/60 mb-8 leading-relaxed font-medium">
+                                                        <p className="text-base sm:text-lg text-emerald-900/60 mb-6 sm:mb-8 leading-relaxed font-medium">
                                                             {treatment.desc}
                                                         </p>
                                                         
@@ -1164,16 +1164,16 @@ export default function HomePage() {
                                                             </div>
                                                         </div>
 
-                                                        <div className="flex flex-col sm:flex-row gap-4 mt-12">
+                                                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-8 sm:mt-12">
                                                             <Button
                                                                 variant="default"
                                                                 size="lg"
-                                                                className="relative group overflow-hidden bg-emerald-900 hover:bg-emerald-950 text-white px-10 py-8 rounded-2xl font-black text-lg shadow-2xl shadow-emerald-950/20 border-none transition-all duration-500 hover:-translate-y-1 active:scale-95"
+                                                                className="relative w-full sm:w-auto group overflow-hidden bg-emerald-900 hover:bg-emerald-950 text-white px-8 sm:px-10 py-6 sm:py-8 rounded-2xl font-black text-base sm:text-lg shadow-2xl shadow-emerald-950/20 border-none transition-all duration-500 hover:-translate-y-1 active:scale-95"
                                                                 onClick={() => handleProductClick(treatment)}
                                                             >
                                                                 <div className="absolute inset-0 bg-gradient-to-r from-emerald-800 to-emerald-950 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                                                                 <span className="relative z-10 flex items-center justify-center gap-3">
-                                                                    <MessageSquare className="w-6 h-6" />
+                                                                    <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6" />
                                                                     Reservasi Eksklusif
                                                                 </span>
                                                             </Button>
@@ -1181,7 +1181,7 @@ export default function HomePage() {
                                                             <Button
                                                                 variant="outline"
                                                                 size="lg"
-                                                                className="px-10 py-8 rounded-2xl border-2 border-emerald-900/10 hover:border-emerald-900/30 hover:bg-emerald-900/5 text-emerald-900 font-black text-lg transition-all duration-500"
+                                                                className="w-full sm:w-auto px-8 sm:px-10 py-6 sm:py-8 rounded-2xl border-2 border-emerald-900/10 hover:border-emerald-900/30 hover:bg-emerald-900/5 text-emerald-900 font-black text-base sm:text-lg transition-all duration-500"
                                                                 onClick={() => handleProductClick(treatment)}
                                                             >
                                                                 Detail Layanan
@@ -1200,10 +1200,9 @@ export default function HomePage() {
             </section>
 
             {/* Products Showcase - Cinematic Grid */}
-            <section id="produk" className="py-24 bg-[#0a0a0a] relative overflow-hidden">
-                {/* Background Text Overlay */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none pointer-events-none opacity-[0.02] overflow-hidden w-full text-center">
-                    <span className="text-[20vw] font-black text-white leading-none tracking-tighter uppercase">COLLECTIONS</span>
+            <section id="produk" className="py-16 sm:py-24 bg-white relative overflow-hidden">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none pointer-events-none opacity-[0.03] overflow-hidden w-full text-center">
+                    <span className="text-[15vw] sm:text-[20vw] font-black text-emerald-900 leading-none tracking-tighter uppercase">COLLECTIONS</span>
                 </div>
                 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -1216,14 +1215,14 @@ export default function HomePage() {
 
                         <Badge 
                             variant="secondary"
-                            className="mb-8 px-6 py-2.5 bg-white/5 text-amber-400 border-white/10 font-black tracking-[0.4em] uppercase text-[10px] rounded-full backdrop-blur-md"
+                            className="mb-8 px-6 py-2.5 bg-emerald-900/5 text-emerald-800 border-emerald-200/50 font-black tracking-[0.4em] uppercase text-[10px] rounded-full"
                         >
                             Curated Masterpieces
                         </Badge>
-                        <h2 className="text-5xl md:text-8xl font-sans font-black text-white mb-10 tracking-tighter leading-[0.8] uppercase">
-                            HERITA<span className="text-transparent bg-clip-text bg-gradient-to-b from-amber-200 to-amber-600">GE</span> COLLECTION
+                        <h2 className="text-4xl sm:text-5xl md:text-8xl font-sans font-black text-emerald-950 mb-6 sm:mb-10 tracking-tighter leading-[0.8] uppercase">
+                            HERITA<span className="text-transparent bg-clip-text bg-gradient-to-b from-amber-500 to-amber-700">GE</span><br className="sm:hidden" /> COLLECTION
                         </h2>
-                        <p className="text-xl md:text-2xl text-white/50 max-w-3xl mx-auto leading-relaxed font-light font-sans italic">
+                        <p className="text-base sm:text-lg md:text-2xl text-emerald-900/60 max-w-3xl mx-auto leading-relaxed font-light font-sans italic">
                             Mahakarya Kesehatan Nusantara, diekstraksi dari bahan botani terbaik dan disempurnakan melalui riset modern untuk menghadirkan kualitas hidup yang prestisius.
                         </p>
                     </motion.div>
@@ -1238,15 +1237,15 @@ export default function HomePage() {
                                 />
                                 <div className="absolute inset-2 border-r-2 border-emerald-500/50 rounded-full animate-spin-reverse" />
                             </div>
-                            <p className="text-white/30 font-bold uppercase tracking-widest text-sm animate-pulse">Menyiapkan Koleksi...</p>
+                            <p className="text-emerald-900/40 font-bold uppercase tracking-widest text-sm animate-pulse">Menyiapkan Koleksi...</p>
                         </div>
                     ) : liveProducts.length === 0 ? (
-                        <div className="text-center py-32 bg-white/5 backdrop-blur-xl rounded-[3rem] border border-white/10">
-                            <Package className="w-20 h-20 text-white/10 mx-auto mb-6" />
-                            <p className="text-white/40 text-xl font-medium italic">Koleksi baru segera hadir</p>
+                        <div className="text-center py-32 bg-emerald-50 rounded-[3rem] border border-emerald-100">
+                            <Package className="w-20 h-20 text-emerald-200 mx-auto mb-6" />
+                            <p className="text-emerald-900/40 text-xl font-medium italic">Koleksi baru segera hadir</p>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
                             {liveProducts.map((product, idx) => (
                                 <motion.div
                                     key={product.id}
@@ -1257,7 +1256,7 @@ export default function HomePage() {
                                     className="group relative"
                                 >
                                     {/* Product Card Container */}
-                                    <div className="relative h-full flex flex-col bg-white/5 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] overflow-hidden transition-all duration-700 hover:border-amber-500/30 hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                                    <div className="relative h-full flex flex-col bg-white border border-emerald-100 rounded-[2.5rem] overflow-hidden transition-all duration-700 hover:border-emerald-300 hover:shadow-[0_20px_50px_rgba(5,150,105,0.1)]">
                                         
                                         {/* Image Area */}
                                         <div 
@@ -1272,12 +1271,12 @@ export default function HomePage() {
                                             
                                             {/* Labels overlay */}
                                             <div className="absolute top-5 left-5 right-5 flex justify-between items-start">
-                                                <Badge className="bg-black/40 backdrop-blur-md text-amber-200 border-amber-900/40 text-[10px] font-black tracking-widest uppercase">
+                                                <Badge variant="default" className="bg-emerald-900/80 backdrop-blur-md text-emerald-50 border-emerald-800/40 text-[10px] font-black tracking-widest uppercase">
                                                     {product.category || 'Retail'}
                                                 </Badge>
                                                 {product.unit && (
-                                                    <div className="w-10 h-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/10">
-                                                        <span className="text-[10px] font-black text-white uppercase">{product.unit}</span>
+                                                    <div className="w-10 h-10 bg-white/40 backdrop-blur-md rounded-full flex items-center justify-center border border-emerald-100/50">
+                                                        <span className="text-[10px] font-black text-emerald-900 uppercase">{product.unit}</span>
                                                     </div>
                                                 )}
                                             </div>
@@ -1297,16 +1296,16 @@ export default function HomePage() {
 
                                         {/* Content Area */}
                                         <div className="p-8 flex flex-col flex-grow">
-                                            <h3 className="text-xl font-bold text-white mb-2 leading-tight group-hover:text-amber-400 transition-colors">
+                                            <h3 className="text-xl font-bold text-emerald-950 mb-2 leading-tight group-hover:text-emerald-700 transition-colors">
                                                 {product.name}
                                             </h3>
                                             
                                             <div className="mt-auto pt-6">
                                                 <div className="flex items-center justify-between gap-4 mb-6">
                                                     <div className="flex flex-col">
-                                                        <span className="text-[10px] text-white/30 uppercase tracking-widest font-bold mb-1">Investasi</span>
-                                                        <span className="text-2xl font-black text-white tracking-tighter">
-                                                            <span className="text-amber-500 text-sm align-top mr-1">RP</span>
+                                                        <span className="text-[10px] text-emerald-900/30 uppercase tracking-widest font-bold mb-1">Investasi</span>
+                                                        <span className="text-2xl font-black text-emerald-950 tracking-tighter">
+                                                            <span className="text-emerald-600 text-sm align-top mr-1">RP</span>
                                                             {product.price.toLocaleString('id-ID')}
                                                         </span>
                                                     </div>
@@ -1323,7 +1322,7 @@ export default function HomePage() {
                                                 <motion.button
                                                     whileHover={{ y: -2 }}
                                                     whileTap={{ scale: 0.98 }}
-                                                    className="w-full py-4 px-6 rounded-2xl bg-white/5 border border-white/10 text-white text-sm font-bold uppercase tracking-widest hover:bg-white/10 transition-all flex items-center justify-center gap-2"
+                                                    className="w-full py-4 px-6 rounded-2xl bg-emerald-50 border border-emerald-100 text-emerald-950 text-sm font-bold uppercase tracking-widest hover:bg-emerald-100 transition-all flex items-center justify-center gap-2"
                                                     onClick={() => handleProductClick(product)}
                                                 >
                                                     Selengkapnya
@@ -1339,40 +1338,40 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* Excellence Grid - THE DARK STANDARD */}
-            <section className="py-32 bg-[#022c22] relative overflow-hidden">
+            {/* Excellence Grid - THE LIGHT STANDARD */}
+            <section className="py-16 sm:py-24 md:py-32 bg-emerald-50/50 relative overflow-hidden">
                 {/* Visual Anchors */}
-                <div className="absolute top-0 right-0 w-1/2 h-full bg-black/20 -skew-x-12 translate-x-1/2 pointer-events-none" />
-                <div className="absolute top-1/4 left-10 w-64 h-64 bg-emerald-500/10 rounded-full blur-[100px] animate-pulse" />
+                <div className="absolute top-0 right-0 w-1/2 h-full bg-emerald-950/5 -skew-x-12 translate-x-1/2 pointer-events-none" />
+                <div className="absolute top-1/4 left-10 w-64 h-64 bg-emerald-200/20 rounded-full blur-[100px] animate-pulse" />
                 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="grid lg:grid-cols-2 gap-20 items-center mb-24">
+                    <div className="grid lg:grid-cols-2 gap-12 sm:gap-16 lg:gap-20 items-center mb-16 sm:mb-24">
                         <motion.div
                             initial={{ opacity: 0, x: -50 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
                         >
-                            <span className="text-amber-500 font-black tracking-[0.4em] text-[10px] uppercase mb-6 block">
+                            <span className="text-emerald-600 font-black tracking-[0.4em] text-[10px] uppercase mb-6 block">
                                 Practical Healthy Living
                             </span>
-                            <h2 className="text-4xl md:text-7xl font-display font-black text-white mb-8 leading-[0.9] tracking-tighter">
+                            <h2 className="text-3xl sm:text-4xl md:text-7xl font-display font-black text-emerald-950 mb-6 sm:mb-8 leading-[0.9] tracking-tighter">
                                 MENGAPA<br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500">JAMU KITO?</span>
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-emerald-900">JAMU KITO?</span>
                             </h2>
-                            <p className="text-emerald-100/40 text-xl leading-relaxed max-w-lg mb-10 font-light">
+                            <p className="text-base sm:text-lg md:text-xl text-emerald-900/60 leading-relaxed max-w-lg mb-8 sm:mb-10 font-light font-sans">
                                 Kami menetapkan standar baru dalam kesehatan herbal, menggabungkan kemurnian alam dengan akurasi modern untuk kualitas hidup yang tak tertandingi.
                             </p>
                             
-                            <div className="flex gap-10">
+                            <div className="flex gap-6 sm:gap-10">
                                 <div>
-                                    <p className="text-4xl font-black text-white mb-1">100%</p>
-                                    <p className="text-[10px] text-amber-500 uppercase tracking-widest font-bold">Natural Purity</p>
+                                    <p className="text-3xl sm:text-4xl font-black text-emerald-950 mb-1">100%</p>
+                                    <p className="text-[8px] sm:text-[10px] text-emerald-600 uppercase tracking-widest font-bold">Natural Purity</p>
                                 </div>
-                                <div className="w-[1px] h-12 bg-white/10" />
+                                <div className="w-[1px] h-10 sm:h-12 bg-emerald-200 mt-1" />
                                 <div>
-                                    <p className="text-4xl font-black text-white mb-1">BPOM</p>
-                                    <p className="text-[10px] text-amber-500 uppercase tracking-widest font-bold">Certified Quality</p>
+                                    <p className="text-3xl sm:text-4xl font-black text-emerald-950 mb-1">BPOM</p>
+                                    <p className="text-[8px] sm:text-[10px] text-emerald-600 uppercase tracking-widest font-bold">Certified Quality</p>
                                 </div>
                             </div>
                         </motion.div>
@@ -1389,16 +1388,16 @@ export default function HomePage() {
                                         duration: 0.8,
                                         ease: [0.22, 1, 0.36, 1]
                                     }}
-                                    className="p-10 rounded-[3rem] bg-white/5 border border-white/10 backdrop-blur-2xl hover:bg-white/10 hover:border-amber-500/30 transition-all duration-700 group relative overflow-hidden"
+                                    className="p-8 sm:p-10 rounded-3xl sm:rounded-[3rem] bg-white/70 border border-emerald-100 backdrop-blur-2xl hover:bg-white hover:border-emerald-300 hover:shadow-2xl hover:shadow-emerald-900/5 transition-all duration-700 group relative overflow-hidden"
                                 >
                                     {/* Glass Highlight */}
-                                    <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                                    <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                                     
-                                    <div className="w-16 h-16 bg-amber-500 rounded-[1.5rem] flex items-center justify-center mb-8 group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-700 shadow-2xl shadow-amber-500/30">
-                                        <item.icon className="w-8 h-8 text-black" />
+                                    <div className="w-14 h-14 sm:w-16 sm:h-16 bg-emerald-900 rounded-2xl sm:rounded-[1.5rem] flex items-center justify-center mb-6 sm:mb-8 group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-700 shadow-2xl shadow-emerald-900/20">
+                                        <item.icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                                     </div>
-                                    <h3 className="text-2xl font-black text-white mb-4 tracking-tighter group-hover:text-amber-400 transition-colors duration-500">{item.title}</h3>
-                                    <p className="text-white/30 text-base leading-relaxed font-light italic">{item.desc}</p>
+                                    <h3 className="text-xl sm:text-2xl font-black text-emerald-950 mb-3 sm:mb-4 tracking-tighter group-hover:text-emerald-700 transition-colors duration-500">{item.title}</h3>
+                                    <p className="text-emerald-900/40 text-base leading-relaxed font-light italic">{item.desc}</p>
                                 </motion.div>
                             ))}
                         </div>
@@ -1406,7 +1405,7 @@ export default function HomePage() {
 
                     {/* Infinite Success Ticker - Ultra Modern */}
                     <motion.div
-                        className="py-20 border-t border-white/5 flex flex-wrap justify-between items-center gap-12"
+                        className="py-12 sm:py-20 border-t border-emerald-100 flex flex-col sm:flex-row flex-wrap justify-between items-center gap-10 sm:gap-12"
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
@@ -1418,39 +1417,42 @@ export default function HomePage() {
                             { icon: Heart, value: '5,000+', label: 'Curated Reviews' }
                         ].map((stat, idx) => (
                             <div key={idx} className="flex-1 min-w-[200px] text-center group cursor-default">
-                                <stat.icon className="w-8 h-8 text-amber-500/30 mx-auto mb-6 group-hover:text-amber-400 group-hover:scale-110 transition-all duration-700" />
-                                <p className="text-5xl md:text-7xl font-black text-white mb-3 tracking-tighter group-hover:text-amber-200 transition-colors duration-700">
+                                <stat.icon className="w-8 h-8 text-emerald-900/20 mx-auto mb-6 group-hover:text-emerald-600 group-hover:scale-110 transition-all duration-700" />
+                                <p className="text-4xl sm:text-5xl md:text-7xl font-black text-emerald-950 mb-2 sm:mb-3 tracking-tighter group-hover:text-emerald-600 transition-colors duration-700">
                                     {stat.value}
                                 </p>
-                                <p className="text-[10px] text-white/20 uppercase tracking-[0.5em] font-black">{stat.label}</p>
+                                <p className="text-[10px] text-emerald-900/20 uppercase tracking-[0.5em] font-black">{stat.label}</p>
                             </div>
                         ))}
                     </motion.div>
                 </div>
             </section>
 
+
             {/* Testimonials - THE LUXURY REVIEW */}
-            <section id="testimoni" className="py-40 bg-white relative overflow-hidden">
+            <section id="testimoni" className="py-16 sm:py-24 md:py-40 bg-white relative overflow-hidden">
                 {/* Decorative Elements */}
                 <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-emerald-50/50 to-transparent pointer-events-none" />
                 <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-amber-100/30 rounded-full blur-[120px] pointer-events-none" />
                 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="text-center mb-32">
+                    <div className="text-center mb-16 sm:mb-24 md:mb-32">
                         <Badge 
                             variant="secondary"
                             className="mb-8 px-6 py-2.5 bg-emerald-900/5 text-emerald-800 border-emerald-200/50 font-black tracking-[0.4em] uppercase text-[10px] rounded-full"
                         >
                             Global Wellness Standard
                         </Badge>
-                        <h2 className="text-5xl md:text-8xl font-display font-black text-emerald-950 mb-10 tracking-tighter leading-[0.8] uppercase">
+                        <h2 className="text-4xl sm:text-5xl md:text-8xl font-display font-black text-emerald-950 mb-6 sm:mb-10 tracking-tighter leading-[0.8] uppercase">
                             VOICE OF <span className="italic text-emerald-800">EXCELLENCE</span>
                         </h2>
-                        <div className="flex items-center justify-center gap-2">
-                            {[1, 2, 3, 4, 5].map((_, i) => (
-                                <Star key={i} className="w-6 h-6 fill-amber-400 text-amber-400" />
-                            ))}
-                            <span className="ml-5 text-emerald-900/30 text-[10px] font-black uppercase tracking-[0.3em]">
+                        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-2">
+                            <div className="flex items-center">
+                                {[1, 2, 3, 4, 5].map((_, i) => (
+                                    <Star key={i} className="w-5 h-5 sm:w-6 sm:h-6 fill-amber-400 text-amber-400" />
+                                ))}
+                            </div>
+                            <span className="sm:ml-5 mt-2 sm:mt-0 text-emerald-900/40 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em]">
                                 5.0 Precision Rated &bull; 1,250+ Verified Rituals
                             </span>
                         </div>
@@ -1464,18 +1466,18 @@ export default function HomePage() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: idx * 0.2, duration: 0.8 }}
-                                className="relative p-10 rounded-[3rem] bg-emerald-50/50 border border-emerald-100/50 hover:bg-white hover:shadow-2xl hover:shadow-emerald-900/10 transition-all duration-700 group"
+                                className="relative p-6 sm:p-8 md:p-10 rounded-3xl sm:rounded-[3rem] bg-emerald-50/50 border border-emerald-100/50 hover:bg-white hover:shadow-2xl hover:shadow-emerald-900/10 transition-all duration-700 group"
                             >
-                                <QuoteIcon className="absolute top-8 right-10 w-16 h-16 text-emerald-900/5 group-hover:text-emerald-900/10 transition-colors" />
+                                <QuoteIcon className="absolute top-6 right-6 sm:top-8 sm:right-10 w-12 h-12 sm:w-16 sm:h-16 text-emerald-900/5 group-hover:text-emerald-900/10 transition-colors" />
                                 
                                 <div className="relative z-10">
-                                    <div className="flex gap-1 mb-8">
+                                    <div className="flex gap-1 mb-6 sm:mb-8">
                                         {[...Array(testimonial.rating)].map((_, i) => (
-                                            <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                                            <Star key={i} className="w-3 h-3 sm:w-4 sm:h-4 fill-amber-400 text-amber-400" />
                                         ))}
                                     </div>
                                     
-                                    <p className="text-xl md:text-2xl font-light text-emerald-950 mb-10 leading-relaxed italic">
+                                    <p className="text-lg sm:text-xl md:text-2xl font-light text-emerald-950 mb-8 sm:mb-10 leading-relaxed italic">
                                         "{testimonial.content}"
                                     </p>
                                     
@@ -1495,47 +1497,47 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* CTA & Contact Section - IMMERSIVE DARK THEME */}
-            <section id="kontak" className="relative py-32 bg-[#022c22] overflow-hidden">
-                <div className="absolute inset-0 opacity-[0.03]">
-                    <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '60px 60px' }} />
+            {/* CTA & Contact Section - CLEAN LIGHT THEME */}
+            <section id="kontak" className="relative py-16 sm:py-24 md:py-32 bg-white overflow-hidden">
+                <div className="absolute inset-0 opacity-[0.05]">
+                    <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #064e3b 1px, transparent 0)', backgroundSize: '60px 60px' }} />
                 </div>
                 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="grid lg:grid-cols-2 gap-20 items-center">
+                    <div className="grid lg:grid-cols-2 gap-12 sm:gap-16 lg:gap-20 items-center">
                         <motion.div
                             initial={{ opacity: 0, x: -30 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                         >
-                            <Badge className="mb-8 px-5 py-2 bg-amber-500 text-black font-black uppercase tracking-[0.2em] text-[10px] rounded-full">
+                            <Badge variant="default" className="mb-8 px-5 py-2 bg-emerald-900 text-white font-black uppercase tracking-[0.2em] text-[10px] rounded-full">
                                 Connect With Us
                             </Badge>
-                            <h2 className="text-4xl md:text-7xl font-display font-black text-white mb-8 leading-[0.9] tracking-tighter">
+                            <h2 className="text-4xl sm:text-5xl md:text-7xl font-display font-black text-emerald-950 mb-6 sm:mb-8 leading-[0.9] tracking-tighter">
                                 MULAI HIDUP<br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500">LEBIH SEHAT.</span>
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-emerald-900">LEBIH SEHAT.</span>
                             </h2>
-                            <p className="text-emerald-100/40 text-xl leading-relaxed mb-12 max-w-lg font-light">
+                            <p className="text-base sm:text-lg md:text-xl text-emerald-900/60 leading-relaxed mb-8 sm:mb-12 max-w-lg font-light font-sans">
                                 Hubungi konsultan kesehatan kami sekarang atau kunjungi pusat layanan Jamu Kito terdekat.
                             </p>
                             
                             <div className="space-y-6">
                                 {[
-                                    { icon: Phone, title: 'Priority Line', val: '081-1717-7959', color: 'bg-emerald-500/10 text-emerald-400' },
-                                    { icon: Mail, title: 'Official Email', val: 'jamukito2023@gmail.com', color: 'bg-amber-500/10 text-amber-500' },
-                                    { icon: MapPin, title: 'Elite Lounge', val: 'Bengkulu, Indonesia', color: 'bg-emerald-500/10 text-emerald-400' }
+                                    { icon: Phone, title: 'Priority Line', val: '081-1717-7959', color: 'bg-emerald-100 text-emerald-700' },
+                                    { icon: Mail, title: 'Official Email', val: 'jamukito2023@gmail.com', color: 'bg-amber-100 text-amber-700' },
+                                    { icon: MapPin, title: 'Elite Lounge', val: 'Bengkulu, Indonesia', color: 'bg-emerald-100 text-emerald-700' }
                                 ].map((item, i) => (
                                     <motion.div 
                                         key={i} 
-                                        className="flex items-center gap-6 p-6 rounded-3xl bg-white/5 border border-white/5 backdrop-blur-xl hover:bg-white/10 transition-all cursor-pointer group"
+                                        className="flex items-center gap-4 sm:gap-6 p-5 sm:p-6 rounded-[2rem] sm:rounded-3xl bg-emerald-50/50 border border-emerald-100 hover:bg-emerald-100 transition-all cursor-pointer group"
                                         whileHover={{ x: 10 }}
                                     >
-                                        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${item.color} group-hover:scale-110 transition-transform`}>
+                                        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${item.color} group-hover:scale-110 transition-transform shadow-sm`}>
                                             <item.icon className="w-6 h-6" />
                                         </div>
                                         <div>
-                                            <p className="text-[10px] uppercase font-black tracking-widest text-white/30 mb-1">{item.title}</p>
-                                            <p className="text-lg font-bold text-white tracking-tight">{item.val}</p>
+                                            <p className="text-[10px] uppercase font-black tracking-widest text-emerald-900/30 mb-1">{item.title}</p>
+                                            <p className="text-lg font-bold text-emerald-950 tracking-tight">{item.val}</p>
                                         </div>
                                     </motion.div>
                                 ))}
@@ -1547,9 +1549,9 @@ export default function HomePage() {
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
-                                className="p-10 rounded-[3rem] bg-white/5 border border-white/10 backdrop-blur-3xl shadow-2xl relative z-10"
+                                className="p-10 rounded-[3rem] bg-emerald-50 border border-emerald-100 shadow-2xl relative z-10"
                             >
-                                <h3 className="text-2xl font-bold text-white mb-8 tracking-tight">Luxury Certification</h3>
+                                <h3 className="text-2xl font-bold text-emerald-950 mb-8 tracking-tight">Luxury Certification</h3>
                                 <div className="space-y-8">
                                     {[
                                         { title: 'CPPOB Certified', desc: "Indonesia's Food Production Standard" },
@@ -1557,12 +1559,12 @@ export default function HomePage() {
                                         { title: 'BPOM Registered', desc: "Elite Health & Safety Assurance" }
                                     ].map((cert, i) => (
                                         <div key={i} className="flex gap-5">
-                                            <div className="w-6 h-6 bg-amber-500 rounded-full flex-shrink-0 flex items-center justify-center">
-                                                <CheckCircle className="w-4 h-4 text-black" />
+                                            <div className="w-6 h-6 bg-emerald-900 rounded-full flex-shrink-0 flex items-center justify-center">
+                                                <CheckCircle className="w-4 h-4 text-white" />
                                             </div>
                                             <div>
-                                                <p className="text-white font-bold text-lg leading-none mb-2">{cert.title}</p>
-                                                <p className="text-white/40 text-sm leading-relaxed">{cert.desc}</p>
+                                                <p className="text-emerald-950 font-bold text-lg leading-none mb-2">{cert.title}</p>
+                                                <p className="text-emerald-900/40 text-sm leading-relaxed">{cert.desc}</p>
                                             </div>
                                         </div>
                                     ))}
@@ -1570,7 +1572,7 @@ export default function HomePage() {
                                 
                                 <Button
                                     size="lg"
-                                    className="w-full mt-12 bg-amber-500 hover:bg-amber-400 text-black py-8 rounded-[2rem] text-lg font-black uppercase tracking-widest shadow-2xl shadow-amber-500/20"
+                                    className="w-full mt-12 bg-emerald-900 hover:bg-emerald-800 text-white py-8 rounded-[2rem] text-lg font-black uppercase tracking-widest shadow-2xl shadow-emerald-900/20"
                                     onClick={() => window.open('https://wa.me/6285279207959', '_blank')}
                                 >
                                     <MessageSquare className="w-6 h-6 mr-3" />
@@ -1579,25 +1581,26 @@ export default function HomePage() {
                             </motion.div>
                             
                             {/* Visual Decoration */}
-                            <div className="absolute -top-10 -right-10 w-64 h-64 bg-emerald-500/20 rounded-full blur-[100px] -z-10" />
+                            <div className="absolute -top-10 -right-10 w-64 h-64 bg-emerald-500/10 rounded-full blur-[100px] -z-10" />
                         </div>
                     </div>
                 </div>
             </section>
 
+
             {/* Footer - THE OMEGA LAYER */}
-            <footer className="bg-[#022c22] text-white py-24 relative border-t border-white/5">
+            <footer className="bg-emerald-50/30 text-emerald-950 py-16 sm:py-24 relative border-t border-emerald-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-16 mb-16 sm:mb-24">
                         <div className="col-span-1 lg:col-span-1">
                             <div className="flex items-center gap-4 mb-8">
                                 <img
                                     src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6937a573d12f0f67c2233fb6/d0e698b3e_logo_jamu_kito-removebg-preview1.png"
                                     alt="JAMU KITO"
-                                    className="h-12 w-auto filter drop-shadow-lg" 
+                                    className="h-12 w-auto filter drop-shadow-md brightness-75 contrast-125" 
                                 />
                             </div>
-                            <p className="text-white/40 text-sm leading-relaxed mb-8 max-w-xs font-medium">
+                            <p className="text-emerald-900/50 text-sm leading-relaxed mb-8 max-w-xs font-medium font-sans">
                                 Harmoni tradisi dan inovasi modern untuk masa depan kesehatan yang berkelanjutan. Pioneer wellness nusantara sejak 2018.
                             </p>
                             <div className="flex gap-4">
@@ -1605,7 +1608,7 @@ export default function HomePage() {
                                     <motion.div 
                                         key={social}
                                         whileHover={{ scale: 1.1, y: -2 }}
-                                        className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer hover:bg-amber-500 hover:text-black transition-all"
+                                        className="w-10 h-10 rounded-full bg-white border border-emerald-100 flex items-center justify-center cursor-pointer hover:bg-emerald-900 hover:text-white transition-all shadow-sm"
                                     >
                                         <div className="w-4 h-4 uppercase text-[8px] font-black">{social.charAt(0)}</div>
                                     </motion.div>
@@ -1614,7 +1617,7 @@ export default function HomePage() {
                         </div>
 
                         <div>
-                            <h3 className="text-white font-black uppercase tracking-[0.3em] text-[10px] mb-8">Layanan Premium</h3>
+                            <h3 className="text-emerald-900 font-black uppercase tracking-[0.3em] text-[10px] mb-8">Layanan Premium</h3>
                             <ul className="space-y-4">
                                 {[
                                     { name: 'Spa & Terapi Ritual', id: 'spa' },
@@ -1625,9 +1628,9 @@ export default function HomePage() {
                                     <li 
                                         key={link.id}
                                         onClick={() => { setActiveService(link.id); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); }}
-                                        className="text-white/40 hover:text-white transition-colors cursor-pointer text-sm font-bold flex items-center gap-3 group"
+                                        className="text-emerald-900/40 hover:text-emerald-950 transition-colors cursor-pointer text-sm font-bold flex items-center gap-3 group"
                                     >
-                                        <div className="w-1 h-1 bg-amber-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                                        <div className="w-1 h-1 bg-emerald-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
                                         {link.name}
                                     </li>
                                 ))}
@@ -1635,7 +1638,7 @@ export default function HomePage() {
                         </div>
 
                         <div>
-                            <h3 className="text-white font-black uppercase tracking-[0.3em] text-[10px] mb-8">Informasi Bisnis</h3>
+                            <h3 className="text-emerald-900 font-black uppercase tracking-[0.3em] text-[10px] mb-8">Informasi Bisnis</h3>
                             <ul className="space-y-4">
                                 {[
                                     { name: 'Tentang Perusahaan', id: 'about' },
@@ -1646,9 +1649,9 @@ export default function HomePage() {
                                     <li 
                                         key={link.name}
                                         onClick={() => document.getElementById(link.id)?.scrollIntoView({ behavior: 'smooth' })}
-                                        className="text-white/40 hover:text-white transition-colors cursor-pointer text-sm font-bold flex items-center gap-3 group"
+                                        className="text-emerald-900/40 hover:text-emerald-950 transition-colors cursor-pointer text-sm font-bold flex items-center gap-3 group"
                                     >
-                                        <div className="w-1 h-1 bg-amber-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                                        <div className="w-1 h-1 bg-emerald-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
                                         {link.name}
                                     </li>
                                 ))}
@@ -1656,16 +1659,16 @@ export default function HomePage() {
                         </div>
 
                         <div>
-                            <h3 className="text-white font-black uppercase tracking-[0.3em] text-[10px] mb-8">Lounge Lokasi</h3>
-                            <div className="p-6 rounded-3xl bg-white/5 border border-white/5 backdrop-blur-xl">
-                                <p className="text-sm font-bold text-white mb-2 leading-none">Bengkulu Global Hub</p>
-                                <p className="text-xs text-white/30 leading-relaxed mb-6 font-medium italic">
+                            <h3 className="text-emerald-900 font-black uppercase tracking-[0.3em] text-[10px] mb-8">Lounge Lokasi</h3>
+                            <div className="p-6 rounded-3xl bg-white border border-emerald-100 shadow-sm">
+                                <p className="text-sm font-bold text-emerald-950 mb-2 leading-none">Bengkulu Global Hub</p>
+                                <p className="text-xs text-emerald-900/40 leading-relaxed mb-6 font-medium italic">
                                     Jl. Jend. Sudirman No. 45<br />
                                     Bengkulu, Indonesia 38114
                                 </p>
                                 <Button
                                     variant="outline"
-                                    className="w-full bg-white/5 border-white/10 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-white/10"
+                                    className="w-full bg-emerald-50 border-emerald-100 text-emerald-900 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-100"
                                     onClick={() => window.open('https://maps.google.com', '_blank')}
                                 >
                                     Dapatkan Arahan
@@ -1674,18 +1677,19 @@ export default function HomePage() {
                         </div>
                     </div>
 
-                    <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
-                        <p className="text-[10px] text-white/20 font-bold uppercase tracking-[0.4em]">
+                    <div className="pt-8 sm:pt-12 border-t border-emerald-100 flex flex-col md:flex-row justify-between items-center gap-6 sm:gap-8 text-center md:text-left">
+                        <p className="text-[10px] text-emerald-900/20 font-bold uppercase tracking-[0.4em]">
                             &copy; 2025 PT JAMUKITO INTERNATIONAL. ALL RIGHTS RESERVED.
                         </p>
-                        <div className="flex gap-10">
+                        <div className="flex flex-wrap justify-center md:justify-end gap-6 sm:gap-10">
                             {['Privasi', 'Ketentuan', 'Cookies'].map((link) => (
-                                <a key={link} href="#" className="text-[10px] text-white/20 hover:text-amber-500 font-bold uppercase tracking-[0.4em] transition-colors">{link}</a>
+                                <a key={link} href="#" className="text-[10px] text-emerald-900/20 hover:text-emerald-600 font-bold uppercase tracking-[0.4em] transition-colors">{link}</a>
                             ))}
                         </div>
                     </div>
                 </div>
             </footer>
+
 
             {/* Product Detail Modal */}
             {showProductDetail && selectedProduct && (

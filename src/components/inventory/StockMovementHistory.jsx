@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { 
-  History, Search, Filter, Download, ArrowUpCircle, ArrowDownCircle, 
+  History, Search, Download, ArrowUpCircle, ArrowDownCircle, 
   ArrowRightCircle, RotateCcw, Loader2, Calendar, User, MapPin,
-  Package, FileText, ChevronLeft, ChevronRight, X
+  Package, ChevronLeft, ChevronRight, X
 } from 'lucide-react';
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';

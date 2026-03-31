@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -11,8 +11,7 @@ const {
 } = base44.entities;
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
-import { DollarSign, TrendingUp, Award, Target, Zap, Trophy, Users } from 'lucide-react';
+import { TrendingUp, Award, Target, Zap, Trophy } from 'lucide-react';
 import { toast } from 'sonner';
 import { motion } from 'framer-motion';
 

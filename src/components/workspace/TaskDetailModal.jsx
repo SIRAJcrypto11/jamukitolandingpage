@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Task } from '@/entities/Task';
 import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
@@ -6,11 +6,11 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 import {
-  MapPin, Clock, User, Calendar, Save, X, ExternalLink, Navigation,
-  Loader2, CheckCircle, AlertCircle, RefreshCw, MessageSquare, Edit3,
-  TrendingUp, Star, ChevronRight, Phone, Home, Hourglass
+  MapPin, User, Calendar, Save, X, ExternalLink, Navigation,
+  Loader2, CheckCircle, RefreshCw, MessageSquare, Edit3,
+  TrendingUp, Star, Hourglass
 } from 'lucide-react';
 import { format } from 'date-fns';
 import { id as idLocale } from 'date-fns/locale';

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -8,13 +8,11 @@ import {
   Download,
   Database,
   Shield,
-  Clock,
   CheckCircle,
   Loader2,
   FileJson,
   HardDrive,
   Calendar,
-  AlertCircle,
   RefreshCw
 } from 'lucide-react';
 import { toast } from 'sonner';

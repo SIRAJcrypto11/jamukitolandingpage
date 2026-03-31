@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import { User } from '@/entities/User';
 import { Button } from '@/components/ui/button';
-import { AlertCircle, RefreshCw } from 'lucide-react';
+import { AlertCircle } from 'lucide-react';
 
 export default function AuthRecovery({ onUserLoaded }) {
   const [authError, setAuthError] = useState(null);

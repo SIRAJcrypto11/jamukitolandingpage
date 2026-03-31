@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { User } from '@/entities/User';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -8,11 +8,10 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
-import { Search, UserCog, Shield, Crown, Edit, Loader2, Zap, CheckCircle, Calendar, Clock, Database, Activity, AlertCircle } from 'lucide-react';
+import { Search, UserCog, Crown, Edit, Loader2, Zap, CheckCircle, Calendar, Clock, Database, Activity, AlertCircle } from 'lucide-react';
 import { toast } from 'sonner';
-import { cachedRequest, invalidateCache } from '@/components/utils/requestManager';
+import { invalidateCache } from '@/components/utils/requestManager';
 import { format, addMonths, addYears, differenceInDays } from 'date-fns';
-import { id } from 'date-fns/locale';
 
 const ADMIN_TIER_LABELS = {
   none: 'Regular User',

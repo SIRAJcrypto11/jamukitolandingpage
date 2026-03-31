@@ -1,12 +1,10 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
-import { X, Calendar, Tag, FileText, Paperclip, Plus, Trash2, CheckCircle, Circle, MoreHorizontal } from 'lucide-react';
+import { X, Calendar, FileText, Paperclip, Trash2, CheckCircle, Circle } from 'lucide-react';
 import { format, parseISO } from 'date-fns';
-import { id } from 'date-fns/locale';
 import { toast } from 'sonner';
 import _ from 'lodash';
 import SubTaskManager from './SubTaskManager';

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -6,12 +6,12 @@ import { Button } from '@/components/ui/button';
 import {
     TrendingUp, TrendingDown, DollarSign, ShoppingCart, Users,
     Package, AlertTriangle, Activity, Zap, ArrowUp, ArrowDown,
-    RefreshCw, Clock, UserCheck, BarChart3, PieChart as PieChartIcon,
-    CheckCircle2, XCircle, Minus, Star
+    RefreshCw, UserCheck, BarChart3, PieChart as PieChartIcon,
+    CheckCircle2, XCircle, Star
 } from 'lucide-react';
 import {
-    AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell,
-    XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend
+    AreaChart, Area, PieChart, Pie, Cell,
+    XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid
 } from 'recharts';
 import { format, subDays, startOfDay, endOfDay, startOfMonth, endOfMonth, isToday } from 'date-fns';
 import { id as idLocale } from 'date-fns/locale';

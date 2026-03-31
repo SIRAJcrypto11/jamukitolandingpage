@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { DigitalProduct } from '@/entities/DigitalProduct';
 import { POSProduct } from '@/entities/POSProduct';
 import { cacheManager, CACHE_KEYS } from '@/components/utils/cacheManager';

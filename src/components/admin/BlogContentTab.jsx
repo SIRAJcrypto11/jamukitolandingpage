@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { 
   Sparkles, Eye, Save, Loader2, Plus, Edit, Trash2, 
-  Newspaper, FileText, Image, Tag, Calendar, Send
+  Newspaper
 } from 'lucide-react';
 import { toast } from 'sonner';
 import ReactQuill from 'react-quill';

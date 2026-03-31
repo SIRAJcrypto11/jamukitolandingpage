@@ -1,8 +1,7 @@
-import React from 'react';
 import { Task } from '@/entities/Task';
 import { User } from '@/entities/User';
 import { Button } from '@/components/ui/button';
-import { CheckCircle2, Circle, Clock, XCircle } from 'lucide-react';
+import { CheckCircle2, Circle, Clock } from 'lucide-react';
 import { toast } from 'sonner';
 import { onTaskCompleted } from '../helpers/gamificationHelper';
 import {

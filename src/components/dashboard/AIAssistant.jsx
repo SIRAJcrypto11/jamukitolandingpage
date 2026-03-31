@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { Bot, Sparkles, Send, Mic, Loader2, Folder } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -9,9 +9,7 @@ import ReactMarkdown from 'react-markdown';
 import { base44 } from '@/api/base44Client';
 import { Task } from '@/entities/Task';
 import { Note } from '@/entities/Note';
-import { Notification } from '@/entities/Notification';
 import { Badge } from '@/components/ui/badge';
-import { Workspace } from '@/entities/Workspace';
 
 import { InvokeLLM } from '@/api/integrations';
 

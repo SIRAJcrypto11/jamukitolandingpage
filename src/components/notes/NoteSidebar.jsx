@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
 import { Lightbulb, Bell, Tag, Archive, Trash2, Pencil, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { motion, AnimatePresence } from 'framer-motion';
 
 export default function NoteSidebar({ labels, activeView, onViewChange, activeLabel, onLabelChange, onClose, isMobile }) {
   const navItems = [

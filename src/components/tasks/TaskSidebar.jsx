@@ -1,9 +1,8 @@
 
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Sun, CalendarDays, CheckSquare, Calendar, Kanban, Timer, Plus, Users, MoreHorizontal, Trash2 } from 'lucide-react';
+import { Sun, CalendarDays, CheckSquare, Calendar, Kanban, Timer, Plus, MoreHorizontal, Trash2 } from 'lucide-react';
 import { isToday, addDays, startOfDay, endOfDay } from 'date-fns';
 import {
   DropdownMenu,

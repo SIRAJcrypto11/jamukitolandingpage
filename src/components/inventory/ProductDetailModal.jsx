@@ -1,10 +1,10 @@
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { X, MapPin, Store, Globe, ShoppingCart, Package, Edit, TrendingUp } from 'lucide-react';
+import { X, MapPin, Store, Globe, ShoppingCart, Package, Edit } from 'lucide-react';
 import StockAllocationForm from './StockAllocationForm';
 
 export default function ProductDetailModal({ product, inventory, companyId, onClose, onUpdate }) {

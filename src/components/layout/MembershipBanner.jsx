@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { differenceInDays } from 'date-fns';
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';

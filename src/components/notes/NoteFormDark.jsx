@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Note } from '@/entities/Note';
 import { User } from '@/entities/User';
 import { Button } from '@/components/ui/button';

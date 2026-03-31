@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -7,9 +7,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
-import { CalendarIcon, User as UserIcon, Download, Users, CheckSquare, XCircle, Clock, TrendingUp, RefreshCw, Loader2, Zap } from 'lucide-react';
+import { CalendarIcon, Download, Users, CheckSquare, XCircle, Clock, TrendingUp, RefreshCw, Loader2, Zap } from 'lucide-react';
 import { format, subDays, isToday } from 'date-fns';
-import { id } from 'date-fns/locale';
 import { toast } from 'sonner';
 
 const STATUS_CONFIG = {

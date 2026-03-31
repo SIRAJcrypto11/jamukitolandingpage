@@ -1,4 +1,3 @@
-import React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import TaskItem from './TaskItem'; // Assuming TaskItem exists
 import { Inbox } from 'lucide-react';
