@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
-export default function NetworkDetector() {
+export default function NetworkDetector({ children }) {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [wasOffline, setWasOffline] = useState(false);
 
@@ -40,13 +40,14 @@ export default function NetworkDetector() {
     };
   }, [wasOffline]);
 
-  if (!isOnline) {
-    return (
-      <div className="fixed top-0 left-0 right-0 bg-red-600 text-white text-center py-2 text-sm z-50">
-        ⚠️ Tidak ada koneksi internet
-      </div>
-    );
-  }
-
-  return null;
-}
+  return (
+    <>
+      {!isOnline && (
+        <div className="fixed top-0 left-0 right-0 bg-red-600 text-white text-center py-2 text-sm z-50 animate-in fade-in slide-in-from-top duration-300">
+          ⚠️ Tidak ada koneksi internet
+        </div>
+      )}
+      {children}
+    </>
+  );
+}
