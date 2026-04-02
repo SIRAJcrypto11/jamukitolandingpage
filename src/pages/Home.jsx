@@ -496,9 +496,9 @@ export default function HomePage() {
     }, [jamuServices, spaServices, maduMinumanServices]);
 
     const handleProductClick = (product) => {
-        // Redirection to the live production site as requested by user
-        console.log('🔗 Redirecting to live production services page for:', product.name);
-        window.open('https://jamukitointernasional.base44.app/#services', '_blank');
+        // Redirection to the Jamu Kito Marketplace for finishing transaction
+        console.log('🔗 Redirecting to Marketplace for:', product?.name || 'product');
+        window.location.href = 'https://jamukitointernasional.base44.app/jamukitomarketplace';
     };
 
     const handleAddToCart = async (product) => {
