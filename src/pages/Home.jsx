@@ -436,6 +436,16 @@ export default function HomePage() {
         return filtered.slice(0, 8);
     }, [liveProducts]);
 
+    const getProductImage = (product) => {
+        if (!product) return 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=400';
+        
+        const name = (product.name || '').toLowerCase();
+        if (name.includes('madu murni 350')) return '/images/products/madu_350.png';
+        if (name.includes('madu murni 150')) return '/images/products/madu_150.png';
+        
+        return product.image_url || 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=400';
+    };
+
     const services = useMemo(() => {
         console.log('');
         console.log('══════════════════════════════════════════');
@@ -458,7 +468,7 @@ export default function HomePage() {
                     category: p.category,
                     price: p.price,
                     desc: p.description || 'Produk herbal berkualitas',
-                    image: p.image_url,
+                    image: getProductImage(p),
                     duration: p.unit
                 }))
             },
@@ -473,7 +483,7 @@ export default function HomePage() {
                     category: p.category,
                     price: p.price,
                     desc: p.description || 'Layanan spa profesional',
-                    image: p.image_url,
+                    image: getProductImage(p),
                     duration: p.unit === 'sesi' ? '60-90 menit' : p.unit
                 }))
             },
@@ -488,7 +498,7 @@ export default function HomePage() {
                     category: p.category,
                     price: p.price,
                     desc: p.description || 'Produk madu dan minuman berkualitas',
-                    image: p.image_url,
+                    image: getProductImage(p),
                     duration: p.unit
                 }))
             }];
@@ -1226,7 +1236,7 @@ export default function HomePage() {
                                             onClick={() => handleProductClick(product)}
                                         >
                                             <motion.img
-                                                src={product.image_url || 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=400'}
+                                                src={getProductImage(product)}
                                                 alt={product.name}
                                                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                                             />
