@@ -502,53 +502,15 @@ export default function HomePage() {
     };
 
     const handleAddToCart = async (product) => {
-        if (!user?.id) {
-            toast.error('Silakan login terlebih dahulu');
-            window.location.href = createPageUrl('Login');
-            return;
-        }
-
-        try {
-            // Check if already in cart
-            const existing = await base44.entities.ShoppingCart.filter({
-                user_id: user.id,
-                product_id: product.id
-            });
-
-            if (existing && existing.length > 0) {
-                // Update quantity
-                await base44.entities.ShoppingCart.update(existing[0].id, {
-                    quantity: existing[0].quantity + 1
-                });
-                toast.success('Jumlah di keranjang ditambah');
-            } else {
-                // Add new item
-                await base44.entities.ShoppingCart.create({
-                    user_id: user.id,
-                    company_id: product.company_id,
-                    product_id: product.id,
-                    product_name: product.name,
-                    product_image: product.image_url,
-                    price: product.price,
-                    quantity: 1
-                });
-                toast.success('Ditambahkan ke keranjang');
-            }
-
-            // Notify cart icon
-            window.dispatchEvent(new Event('cartUpdated'));
-        } catch (error) {
-            console.error('Error adding to cart:', error);
-            toast.error('Gagal menambahkan ke keranjang');
-        }
+        // Redirection to the Jamu Kito Marketplace for finishing transaction
+        console.log('🛒 Redirecting to Marketplace for:', product?.name || 'product');
+        window.location.href = 'https://jamukitointernasional.base44.app/jamukitomarketplace';
     };
 
     const handleGetStarted = () => {
-        if (user?.id) {
-            window.location.href = createPageUrl('Dashboard');
-        } else {
-            window.location.href = createPageUrl('Login');
-        }
+        // Redirection to the Jamu Kito Marketplace for finishing transaction
+        console.log('🚀 Redirecting to Marketplace from Hero CTA');
+        window.location.href = 'https://jamukitointernasional.base44.app/jamukitomarketplace';
     };
 
 
@@ -1085,7 +1047,7 @@ export default function HomePage() {
                                         <p className="text-emerald-900/60 font-medium italic">Layanan sedang dipersiapkan untuk Anda</p>
                                     </div>
                                 ) : (
-                                    <div className="space-y-20 sm:space-y-32">
+                                    <div className="flex overflow-x-auto sm:block sm:space-y-32 gap-6 pb-12 snap-x snap-mandatory scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
                                         {service.treatments.map((treatment, idx) => (
                                             <motion.div
                                                 key={idx}
@@ -1093,7 +1055,7 @@ export default function HomePage() {
                                                 whileInView={{ opacity: 1, y: 0 }}
                                                 viewport={{ once: true, margin: "-100px" }}
                                                 transition={{ duration: 0.8, delay: idx * 0.1 }}
-                                                className={`grid lg:grid-cols-2 gap-10 sm:gap-16 lg:gap-24 items-center ${idx % 2 === 0 ? '' : 'lg:grid-flow-dense'}`}
+                                                className={`flex-shrink-0 w-[88vw] sm:w-auto snap-center grid lg:grid-cols-2 gap-10 sm:gap-16 lg:gap-24 items-center ${idx % 2 === 0 ? '' : 'lg:grid-flow-dense'} bg-white/40 sm:bg-transparent backdrop-blur-xl sm:backdrop-blur-0 rounded-[3rem] p-6 sm:p-0 border border-emerald-100 sm:border-none shadow-xl sm:shadow-none transition-all duration-500`}
                                             >
                                                 {/* Image Container - High End */}
                                                 <div className={`relative group ${idx % 2 === 0 ? '' : 'lg:col-start-2'}`}>
@@ -1245,7 +1207,7 @@ export default function HomePage() {
                             <p className="text-emerald-900/40 text-xl font-medium italic">Koleksi baru segera hadir</p>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+                        <div className="flex overflow-x-auto sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 pb-10 snap-x snap-mandatory scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
                             {liveProducts.map((product, idx) => (
                                 <motion.div
                                     key={product.id}
@@ -1253,7 +1215,7 @@ export default function HomePage() {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true, margin: "-100px" }}
                                     transition={{ delay: idx % 4 * 0.1, duration: 0.6 }}
-                                    className="group relative"
+                                    className="group relative flex-shrink-0 w-[85vw] sm:w-auto snap-center"
                                 >
                                     {/* Product Card Container */}
                                     <div className="relative h-full flex flex-col bg-white border border-emerald-100 rounded-[2.5rem] overflow-hidden transition-all duration-700 hover:border-emerald-300 hover:shadow-[0_20px_50px_rgba(5,150,105,0.1)]">
