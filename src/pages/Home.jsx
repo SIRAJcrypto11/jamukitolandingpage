@@ -34,24 +34,17 @@ export default function HomePage() {
     const heroRef = useRef(null);
 
     useEffect(() => {
-        console.log('');
-        console.log('════════════════════════════════════════════════════');
-        console.log('🚀 HOME PAGE MOUNTED');
-        console.log('════════════════════════════════════════════════════');
-
         checkAuth();
         loadDefaultCompanyAndProducts();
 
         // ✅ AUTO-REFRESH products every 10 seconds
         const refreshInterval = setInterval(() => {
             if (defaultCompany?.id) {
-                console.log('🔄 HOME auto-refresh (10s)');
                 loadProducts(defaultCompany.id);
             }
         }, 10000);
 
         return () => {
-            console.log('🛑 HOME unmounted');
             clearInterval(refreshInterval);
         };
     }, [defaultCompany?.id]);
@@ -60,29 +53,24 @@ export default function HomePage() {
     useEffect(() => {
         if (!defaultCompany?.id) return;
 
-        console.log('📡 HOME: REALTIME sync active for products');
-
         const productsChannel = new BroadcastChannel('snishop_products_updates');
         const posChannel = new BroadcastChannel('pos_inventory_sync');
         const invChannel = new BroadcastChannel('snishop_inventory_updates');
 
         productsChannel.onmessage = (e) => {
             if (e.data.companyId === defaultCompany.id) {
-                console.log('📡 HOME: Products updated');
                 setTimeout(() => loadProducts(defaultCompany.id), 500);
             }
         };
 
         posChannel.onmessage = (e) => {
             if (e.data.companyId === defaultCompany.id) {
-                console.log('📡 HOME: POS updated');
                 setTimeout(() => loadProducts(defaultCompany.id), 500);
             }
         };
 
         invChannel.onmessage = (e) => {
             if (e.data.companyId === defaultCompany.id) {
-                console.log('📡 HOME: Inventory updated');
                 setTimeout(() => loadProducts(defaultCompany.id), 500);
             }
         };
@@ -90,7 +78,6 @@ export default function HomePage() {
         const handleUpdate = (event) => {
             const { entityName, companyId } = event.detail || {};
             if (companyId === defaultCompany.id && entityName === 'CompanyPOSProduct') {
-                console.log('📡 HOME: Window event - refreshing');
                 setTimeout(() => loadProducts(defaultCompany.id), 500);
             }
         };
@@ -113,25 +100,18 @@ export default function HomePage() {
         try {
             setIsLoadingProducts(true);
 
-            console.log('');
-            console.log('═══════════════════════════════════════════');
-            console.log('🔍 LOADING JAMU KITO INTERNATIONAL DATA');
-            console.log('═══════════════════════════════════════════');
-
             let targetCompany = null;
             const configCompanyId = appParams.companyId;
 
             // ✅ METHOD 0: Configured Company ID (High Priority)
             if (configCompanyId) {
                 try {
-                    console.log('📌 METHOD 0: Using configured company ID:', configCompanyId);
                     const configCompany = await base44.entities.Company.get(configCompanyId);
                     if (configCompany) {
                         targetCompany = configCompany;
-                        console.log('✅ METHOD 0: Success:', targetCompany?.name || 'JAMU KITO');
                     }
                 } catch (configError) {
-                    console.warn('⚠️ Method 0 failed:', configError.message);
+                    // Method 0 failed, try next
                 }
             }
 
@@ -143,17 +123,14 @@ export default function HomePage() {
 
                 if (settings && settings.length > 0) {
                     const companyId = settings[0].company_id;
-                    console.log('📌 Found settings with company ID:', companyId);
-
                     const company = await base44.entities.Company.get(companyId);
 
                     if (company) {
                         targetCompany = company;
-                        console.log('✅ METHOD 1: Company via settings:', company.name);
                     }
                 }
             } catch (settingsError) {
-                console.warn('⚠️ Method 1 failed:', settingsError.message);
+                // Method 1 failed, try next
             }
 
             // ✅ METHOD 2: Direct query by exact name
@@ -165,25 +142,22 @@ export default function HomePage() {
 
                     if (exactMatch && exactMatch.length > 0) {
                         targetCompany = exactMatch[0];
-                        console.log('✅ METHOD 2: Exact name match:', targetCompany.name);
                     }
                 } catch (e) {
-                    console.warn('⚠️ Method 2 failed:', e.message);
+                    // Method 2 failed, try next
                 }
             }
 
             // ✅ METHOD 3: Direct ID lookup (ALWAYS WORKS)
             if (!targetCompany) {
                 try {
-                    console.log('🎯 METHOD 3: Direct ID lookup...');
                     const directCompany = await base44.entities.Company.get('694cc38feacdffcc010f0d60');
 
                     if (directCompany) {
                         targetCompany = directCompany;
-                        console.log('✅ METHOD 3: Direct ID success:', targetCompany.name);
                     }
                 } catch (e) {
-                    console.warn('⚠️ Method 3 failed:', e.message);
+                    // Method 3 failed, try next
                 }
             }
 
@@ -191,7 +165,6 @@ export default function HomePage() {
             if (!targetCompany) {
                 try {
                     const allCompanies = await base44.entities.Company.filter({});
-                    console.log('📦 Total companies:', allCompanies?.length || 0);
 
                     if (allCompanies && allCompanies.length > 0) {
                         targetCompany = allCompanies.find((c) =>
@@ -209,33 +182,23 @@ export default function HomePage() {
                                 c.name && c.name.toUpperCase().includes('JAMU KITO')
                             );
                         }
-
-                        if (targetCompany) {
-                            console.log('✅ METHOD 4: Found via search:', targetCompany.name);
-                        }
                     }
                 } catch (e) {
-                    console.warn('⚠️ Method 4 failed:', e.message);
+                    // Method 4 failed
                 }
             }
 
             if (!targetCompany) {
-                console.error('❌ CRITICAL: No company found!');
+                console.error('No company found');
                 setIsLoadingProducts(false);
                 return;
             }
 
             setDefaultCompany(targetCompany);
-            console.log('');
-            console.log('🎯 FINAL SELECTED COMPANY:');
-            console.log('   Name:', targetCompany.name);
-            console.log('   ID:', targetCompany.id);
-            console.log('');
-
             await loadProducts(targetCompany.id);
 
         } catch (e) {
-            console.error('❌ CRITICAL ERROR:', e);
+            console.error('Critical error loading company:', e);
             setIsLoadingProducts(false);
         } finally {
             setIsLoadingProducts(false);
@@ -244,48 +207,22 @@ export default function HomePage() {
 
     const loadProducts = async (companyId) => {
         try {
-            console.log('');
-            console.log('📦 HOME - FETCHING PRODUCTS DIRECT FROM DB');
-            console.log('🆔 Company ID:', companyId);
-
             // ✅ DIRECT DATABASE QUERY - NO CACHE
             const productsData = await base44.entities.CompanyPOSProduct.filter({
                 company_id: companyId,
                 is_active: true
             });
 
-            console.log('');
-            console.log('✅ PRODUCTS FETCHED:', (productsData || []).length, 'items');
-
             // ✅ SMART UPDATE - Only update if new data is valid
             if (productsData && productsData.length > 0) {
-                console.log('');
-                console.log('📋 PRODUCTS BY CATEGORY:');
-
-                const grouped = {};
-                productsData.forEach((p) => {
-                    const cat = p.category || 'Uncategorized';
-                    if (!grouped[cat]) grouped[cat] = [];
-                    grouped[cat].push(p.name);
-                });
-
-                Object.entries(grouped).forEach(([cat, prods]) => {
-                    console.log(`   ${cat}: ${prods.length} items`);
-                });
-
                 setLiveProducts(productsData);
-
-                console.log('');
-                console.log('✅ HOME UPDATED:', productsData.length, 'products');
-                console.log('═══════════════════════════════════════════');
-                console.log('');
             } else if (liveProducts.length === 0) {
                 // First load - accept even empty
                 setLiveProducts(productsData || []);
             }
             // ✅ If data empty but we have products - KEEP existing products
         } catch (err) {
-            console.error('❌ Error loading products:', err.message);
+            console.error('Error loading products:', err.message);
             // ✅ Keep existing products on error
         } finally {
             setIsLoadingProducts(false);
@@ -332,51 +269,29 @@ export default function HomePage() {
 
     // ✅ SERVICES - Ambil SEMUA produk dari database, group by kategori
     const jamuServices = useMemo(() => {
-        console.log('');
-        console.log('🔍 useMemo JAMU SERVICES - FILTERING');
-        console.log('   Total liveProducts:', liveProducts?.length || 0);
-
         if (!liveProducts || liveProducts.length === 0) {
-            console.warn('❌ No products to filter for Jamu');
             return [];
         }
-
-        // ✅ ULTRA FLEXIBLE MATCHING - show ALL categories for debugging
-        console.log('📋 All product categories:');
-        liveProducts.forEach((p) => {
-            console.log(`   - ${p.name}: "${p.category}"`);
-        });
 
         const filtered = liveProducts.filter((p) => {
             const cat = (p.category || '').toLowerCase();
             const name = (p.name || '').toLowerCase();
 
             // ✅ FLEXIBLE: Match jamu/herbal in category OR name
-            const match = cat.includes('herbal') ||
+            return cat.includes('herbal') ||
                 cat.includes('jamu') ||
                 cat.includes('obat') ||
                 cat.includes('tradisional') ||
                 cat.includes('botanical') ||
                 cat.includes('medicine') ||
                 name.includes('jamu');
-
-            if (match) {
-                console.log('   ✅ MATCHED Jamu:', p.name, '(Cat:', p.category, ')');
-            }
-            return match;
         });
 
-        console.log('✅ Jamu filtered:', filtered.length, 'products');
-        console.log('');
         return filtered.slice(0, 8);
     }, [liveProducts]);
 
     const spaServices = useMemo(() => {
-        console.log('🔍 useMemo SPA SERVICES - FILTERING');
-        console.log('   Total liveProducts:', liveProducts?.length || 0);
-
         if (!liveProducts || liveProducts.length === 0) {
-            console.warn('❌ No products for Spa');
             return [];
         }
 
@@ -384,7 +299,7 @@ export default function HomePage() {
             const cat = (p.category || '').toLowerCase();
             const name = (p.name || '').toLowerCase();
 
-            const match = cat.includes('spa') ||
+            return cat.includes('spa') ||
                 cat.includes('layanan') ||
                 cat.includes('terapi') ||
                 cat.includes('treatment') ||
@@ -392,23 +307,13 @@ export default function HomePage() {
                 name.includes('spa') ||
                 name.includes('pijat') ||
                 name.includes('massage');
-
-            if (match) {
-                console.log('   ✅ MATCHED Spa:', p.name, '(Cat:', p.category, ')');
-            }
-            return match;
         });
 
-        console.log('✅ Spa filtered:', filtered.length, 'products');
         return filtered.slice(0, 8);
     }, [liveProducts]);
 
     const maduMinumanServices = useMemo(() => {
-        console.log('🔍 useMemo MADU & MINUMAN - FILTERING');
-        console.log('   Total liveProducts:', liveProducts?.length || 0);
-
         if (!liveProducts || liveProducts.length === 0) {
-            console.warn('❌ No products for Madu');
             return [];
         }
 
@@ -416,7 +321,7 @@ export default function HomePage() {
             const cat = (p.category || '').toLowerCase();
             const name = (p.name || '').toLowerCase();
 
-            const match = cat.includes('madu') ||
+            return cat.includes('madu') ||
                 cat.includes('minuman') ||
                 cat.includes('sirup') ||
                 cat.includes('serbuk') ||
@@ -425,14 +330,8 @@ export default function HomePage() {
                 cat.includes('beverage') ||
                 name.includes('madu') ||
                 name.includes('honey');
-
-            if (match) {
-                console.log('   ✅ MATCHED Madu/Minuman:', p.name, '(Cat:', p.category, ')');
-            }
-            return match;
         });
 
-        console.log('✅ Madu/Minuman filtered:', filtered.length, 'products');
         return filtered.slice(0, 8);
     }, [liveProducts]);
 
@@ -447,15 +346,6 @@ export default function HomePage() {
     };
 
     const services = useMemo(() => {
-        console.log('');
-        console.log('══════════════════════════════════════════');
-        console.log('📊 BUILDING SERVICES FOR DISPLAY');
-        console.log('   Jamu products:', jamuServices.length);
-        console.log('   Spa products:', spaServices.length);
-        console.log('   Madu products:', maduMinumanServices.length);
-        console.log('══════════════════════════════════════════');
-        console.log('');
-
         return [
             {
                 id: 'jamu',
@@ -507,19 +397,16 @@ export default function HomePage() {
 
     const handleProductClick = (product) => {
         // Redirection to the Jamu Kito Marketplace for finishing transaction
-        console.log('🔗 Redirecting to Marketplace for:', product?.name || 'product');
         window.location.href = 'https://jamukitointernasional.base44.app/jamukitomarketplace';
     };
 
     const handleAddToCart = async (product) => {
         // Redirection to the Jamu Kito Marketplace for finishing transaction
-        console.log('🛒 Redirecting to Marketplace for:', product?.name || 'product');
         window.location.href = 'https://jamukitointernasional.base44.app/jamukitomarketplace';
     };
 
     const handleGetStarted = () => {
         // Redirection to the Jamu Kito Marketplace for finishing transaction
-        console.log('🚀 Redirecting to Marketplace from Hero CTA');
         window.location.href = 'https://jamukitointernasional.base44.app/jamukitomarketplace';
     };
 

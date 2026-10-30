@@ -99,7 +99,6 @@ class RequestManager {
           }
         });
         
-        console.log(`💾 Cache loaded: ${count} items - INSTANT MODE`);
       }
     } catch (e) {}
   }
@@ -159,7 +158,6 @@ class RequestManager {
 
       if (isRateLimit && attemptNumber < this.retryDelays.length) {
         const delay = this.retryDelays[attemptNumber];
-        console.log(`⏳ Rate limit hit, retrying in ${delay/1000}s (attempt ${attemptNumber + 1}/${this.retryDelays.length})`);
         
         await new Promise(resolve => setTimeout(resolve, delay));
         return this.retryRequest(entityName, method, filters, attemptNumber + 1);
@@ -176,8 +174,6 @@ class RequestManager {
     if (!skipCache) {
       const cached = this.getCached(cacheKey);
       if (cached && cached.data !== null && cached.data !== undefined) {
-        console.log(`⚡ INSTANT: ${entityName}.${method} (age: ${Math.round(cached.age/1000)}s)`);
-
         if (cached.isStale && !background && !this.pendingRequests.has(cacheKey)) {
           setTimeout(() => {
             this.request(entityName, method, filters, { skipCache: true, background: true })
@@ -196,8 +192,6 @@ class RequestManager {
       } else if (method === 'get' || method === 'me') {
         placeholder = null;
       }
-      
-      console.log(`⚡ NO CACHE: ${entityName}.${method} - Placeholder returned`);
       
       if (placeholder !== null) {
         setTimeout(() => {
@@ -232,7 +226,6 @@ class RequestManager {
       } catch (error) {
         const staleCache = this.cache.get(cacheKey);
         if (staleCache && staleCache.data) {
-          console.log(`✅ Using STALE cache on error: ${entityName}.${method}`);
           return staleCache.data;
         }
         
@@ -282,7 +275,6 @@ class RequestManager {
           break;
         case 'get':
           if (!filters || !filters.id) {
-            console.warn(`⚠️ Invalid get query - missing ID for ${entityName}`);
             return null;
           }
           result = await Entity.get(filters.id);
