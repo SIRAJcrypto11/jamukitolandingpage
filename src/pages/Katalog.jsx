@@ -8,7 +8,7 @@ import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { toast } from 'sonner';
 import {
   Search, ShoppingCart, Leaf, MessageCircle, X, Plus, Minus,
-  Package, ChevronLeft, Smartphone, Sparkles
+  Package, ChevronLeft, Smartphone
 } from 'lucide-react';
 
 const COMPANY_ID = '694cc38feacdffcc010f0d60';

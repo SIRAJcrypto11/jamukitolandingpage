@@ -19,7 +19,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import bgJamukito from '../assets/bg  jamukito.jpg';
 
 import ProductDetailModal from '../components/shop/ProductDetailModal';
-import { toast } from 'sonner';
 
 export default function HomePage() {
     const [user, setUser] = useState(null);
