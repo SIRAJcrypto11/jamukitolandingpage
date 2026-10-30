@@ -164,6 +164,14 @@ button:focus-visible {
   .scrollbar-hide::-webkit-scrollbar {
     display: none; /* Chrome, Safari and Opera */
   }
+  /* Alias used by Katalog filter strip — same behaviour as .scrollbar-hide */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* ================================================
