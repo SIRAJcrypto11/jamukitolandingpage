@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 import ErrorBoundary from '@/components/utils/ErrorBoundary';
