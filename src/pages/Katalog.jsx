@@ -154,9 +154,9 @@ export default function KatalogPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f6f5f1] text-[#1a2e1d]">
+    <div className="h-[100dvh] flex flex-col bg-[#f6f5f1] text-[#1a2e1d] overflow-hidden">
       {/* Fixed header — never scrolls away */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#0f1f12] border-b border-white/10 shadow-md">
+      <header className="shrink-0 z-50 bg-[#0f1f12] border-b border-white/10">
         <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between gap-3">
           <a href="/" className="flex items-center gap-2 text-white">
             <ChevronLeft className="w-4 h-4" />
@@ -181,26 +181,16 @@ export default function KatalogPage() {
         </div>
       </header>
 
-      {/* Spacer for fixed header */}
-      <div className="h-14" />
-
-      {/* Hero */}
-      <section className="bg-gradient-to-b from-[#0f1f12] to-[#16301c] text-white py-8 px-4">
-        <div className="max-w-6xl mx-auto">
-          <p className="text-amber-300 text-[11px] tracking-[0.28em] uppercase mb-1.5 flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5" /> Katalog Produk
-          </p>
-          <h1 className="text-3xl sm:text-4xl font-black leading-tight">
-            Semua Produk<br />Jamu Kito International
-          </h1>
-          <p className="text-white/65 mt-2 text-sm max-w-md">
-            Produk herbal unggulan di atas. Pesan via WhatsApp atau login sebagai member untuk order di aplikasi.
-          </p>
+      {/* Compact title strip — stays with header */}
+      <section className="shrink-0 bg-[#0f1f12] text-white px-4 pb-2">
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
+          <h1 className="text-sm font-semibold text-white/80">Katalog Produk</h1>
+          <span className="text-[11px] text-amber-300">Herbal di atas</span>
         </div>
       </section>
 
       {/* Sticky filter strip (sticks under fixed header) */}
-      <div className="sticky top-14 z-40 bg-[#f6f5f1]/95 backdrop-blur border-b border-black/5">
+      <div className="shrink-0 z-40 bg-[#f6f5f1] border-b border-black/5 shadow-sm">
         <div className="max-w-6xl mx-auto px-4 py-3 space-y-2.5">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -230,7 +220,8 @@ export default function KatalogPage() {
       </div>
 
       {/* Grid */}
-      <main className="max-w-6xl mx-auto px-4 py-5">
+      <main className="flex-1 overflow-y-auto overscroll-contain">
+      <div className="max-w-6xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between mb-3 text-sm text-gray-500">
           <span>{filtered.length} produk</span>
           <span className="text-emerald-700 text-xs font-medium">Herbal & unggulan di atas</span>
@@ -276,6 +267,7 @@ export default function KatalogPage() {
             ))}
           </div>
         )}
+      </div>
       </main>
 
       {/* Detail */}
