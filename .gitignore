@@ -1,5 +1,8 @@
 #env
 .env
+
+# Qoder indexes
+.qoder/indexes/
 .env.*
 
 # Logs

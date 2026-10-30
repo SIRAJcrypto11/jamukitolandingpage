@@ -11,7 +11,8 @@ import {
     Package, Coffee, Droplet, Heart, Users, Award, Shield,
     Menu, X, ChevronRight, MessageSquare, Mail, Sparkles,
     ShoppingCart, LayoutDashboard, Eye, Target,
-    Quote as QuoteIcon
+    Quote as QuoteIcon,
+    Instagram, Facebook, Twitter
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -1461,13 +1462,19 @@ export default function HomePage() {
                                 Harmoni tradisi dan inovasi modern untuk masa depan kesehatan yang berkelanjutan. Pioneer wellness nusantara sejak 2018.
                             </p>
                             <div className="flex gap-4">
-                                {['instagram', 'facebook', 'twitter'].map((social) => (
-                                    <motion.div 
-                                        key={social}
+                                {[
+                                    { name: 'instagram', icon: Instagram },
+                                    { name: 'facebook', icon: Facebook },
+                                    { name: 'twitter', icon: Twitter }
+                                ].map(({ name, icon: Icon }) => (
+                                    <motion.div
+                                        key={name}
                                         whileHover={{ scale: 1.1, y: -2 }}
                                         className="w-11 h-11 rounded-full bg-white border border-emerald-100 flex items-center justify-center cursor-pointer hover:bg-emerald-900 hover:text-white transition-all shadow-sm"
+                                        role="link"
+                                        aria-label={name}
                                     >
-                                        <div className="w-4 h-4 uppercase text-[8px] font-black">{social.charAt(0)}</div>
+                                        <Icon className="w-4 h-4" />
                                     </motion.div>
                                 ))}
                             </div>
@@ -1536,11 +1543,11 @@ export default function HomePage() {
 
                     <div className="pt-8 sm:pt-12 border-t border-emerald-100 flex flex-col md:flex-row justify-between items-center gap-6 sm:gap-8 text-center md:text-left">
                         <p className="text-[10px] text-emerald-900/20 font-bold uppercase tracking-[0.4em]">
-                            &copy; 2025 PT JAMUKITO INTERNATIONAL. ALL RIGHTS RESERVED.
+                            &copy; {new Date().getFullYear()} PT JAMUKITO INTERNATIONAL. ALL RIGHTS RESERVED.
                         </p>
                         <div className="flex flex-wrap justify-center md:justify-end gap-6 sm:gap-10">
                             {['Privasi', 'Ketentuan', 'Cookies'].map((link) => (
-                                <a key={link} href="#" className="text-[10px] text-emerald-900/20 hover:text-emerald-600 font-bold uppercase tracking-[0.4em] transition-colors">{link}</a>
+                                <span key={link} className="text-[10px] text-emerald-900/20 font-bold uppercase tracking-[0.4em] cursor-default" title="Segera hadir">{link}</span>
                             ))}
                         </div>
                     </div>
