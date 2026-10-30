@@ -2,6 +2,7 @@ import './App.css'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
 import { pagesConfig } from './pages.config'
+import Katalog from './pages/Katalog';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
 const { Pages, Layout, mainPage } = pagesConfig;
@@ -31,6 +32,12 @@ const AuthenticatedApp = () => {
           }
         />
       ))}
+      {/* Explicit lowercase alias so QR /katalog works */}
+      <Route path="/katalog" element={
+        <LayoutWrapper currentPageName="Katalog">
+          <Katalog />
+        </LayoutWrapper>
+      } />
       {/* Redirect all other routes to home */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
