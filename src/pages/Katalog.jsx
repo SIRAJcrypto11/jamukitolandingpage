@@ -13,6 +13,12 @@ import {
 
 const COMPANY_ID = '694cc38feacdffcc010f0d60';
 const WA_NUMBER = '6285279207959';
+const BANK_INFO = [
+  'BCA 6555000603 a.n. Aulia Wulandari',
+  'Mandiri 1790000813571 a.n. Aulia Wulandari',
+  'BSI 7213306997 a.n. Aulia Wulandari',
+  'BPD 1020201041230 a.n. Aulia Wulandari',
+].join('\n');
 const CART_KEY = 'jk_katalog_cart';
 
 const formatRp = (n) => `Rp ${Number(n || 0).toLocaleString('id-ID')}`;
@@ -121,13 +127,32 @@ export default function KatalogPage() {
     setCart((prev) => prev.map((i) => (i.id === id ? { ...i, qty } : i)));
   };
 
-  const orderViaWA = () => {
+  const orderViaWA = async () => {
     if (cart.length === 0) {
       toast.error('Keranjang masih kosong');
       return;
     }
     const lines = cart.map((i) => '- ' + i.name + ' x' + i.qty + ' = ' + formatRp(i.price * i.qty)).join('\n');
-    const msg = 'Halo Jamu Kito International!\n\nSaya ingin memesan dari katalog:\n' + lines + '\n\nTotal: ' + formatRp(cartTotal) + '\n\nMohon konfirmasi ketersediaan. Terima kasih!';
+    const msg = 'Halo Jamu Kito International!\n\nSaya ingin memesan dari katalog:\n' + lines + '\n\nTotal: ' + formatRp(cartTotal) + '\n\nTransfer ke:\n' + BANK_INFO + '\n\nMohon konfirmasi. Terima kasih!';
+    // If logged in, also create CompanyOrder so admin sees it
+    if (user?.id) {
+      try {
+        await base44.entities.CompanyOrder.create({
+          company_id: COMPANY_ID,
+          customer_id: user.id,
+          customer_email: user.email || '',
+          customer_name: user.full_name || user.email || 'Member',
+          order_number: 'WA-' + Date.now(),
+          items: cart.map((i) => ({ product_id: i.id, product_name: i.name, quantity: i.qty, price: i.price, subtotal: i.price * i.qty })),
+          total_amount: cartTotal,
+          status: 'pending',
+          payment_method: 'transfer',
+          notes: 'Order via WhatsApp dari katalog',
+          shipping_address: { name: user.full_name || '', phone: '', address: '', city: '', province: '', postal_code: '' },
+        });
+        toast.success('Pesanan tercatat di sistem');
+      } catch {}
+    }
     window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
   };
 

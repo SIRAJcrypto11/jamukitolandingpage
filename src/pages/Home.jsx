@@ -718,6 +718,9 @@ export default function HomePage() {
                     </AnimatePresence>
                 </div>
             </header>
+      <a href="/katalog" className="fixed bottom-20 right-5 z-40 bg-emerald-600 text-white text-sm font-semibold px-4 py-2.5 rounded-full shadow-lg hover:bg-emerald-500">
+        Lihat Katalog
+      </a>
 
             {/* Cinematic Hero Section */}
             <section
