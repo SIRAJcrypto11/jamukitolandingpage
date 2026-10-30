@@ -17,8 +17,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import bgJamukito from '../assets/bg-jamukito.jpg';
 
-import ProductDetailModal from '../components/shop/ProductDetailModal';
-
 export default function HomePage() {
     const [user, setUser] = useState(null);
     const [isCheckingAuth, setIsCheckingAuth] = useState(true);
@@ -27,8 +25,6 @@ export default function HomePage() {
     const [defaultCompany, setDefaultCompany] = useState(null);
     const [liveProducts, setLiveProducts] = useState(initialProducts);
     const [isLoadingProducts, setIsLoadingProducts] = useState(true);
-    const [selectedProduct, setSelectedProduct] = useState(null);
-    const [showProductDetail, setShowProductDetail] = useState(false);
     const [cartItemCount, setCartItemCount] = useState(0);
     const heroRef = useRef(null);
 
@@ -1662,21 +1658,6 @@ export default function HomePage() {
                     </div>
                 </div>
             </footer>
-
-
-            {/* Product Detail Modal */}
-            {showProductDetail && selectedProduct && (
-                <ProductDetailModal
-                    product={selectedProduct}
-                    isOpen={showProductDetail}
-                    onClose={() => {
-                        setShowProductDetail(false);
-                        setSelectedProduct(null);
-                    }}
-                    currentUser={user}
-                    companyData={defaultCompany}
-                />
-            )}
         </div>);
 
 }
