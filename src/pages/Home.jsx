@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import bgJamukito from '../assets/bg  jamukito.jpg';
+import bgJamukito from '../assets/bg-jamukito.jpg';
 
 import ProductDetailModal from '../components/shop/ProductDetailModal';
 
