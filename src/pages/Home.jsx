@@ -15,10 +15,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import bgJamukito from '../assets/bg  jamukito.jpg';
-
-import ProductDetailModal from '../components/shop/ProductDetailModal';
-import { toast } from 'sonner';
+import bgJamukito from '../assets/bg-jamukito.jpg';
 
 export default function HomePage() {
     const [user, setUser] = useState(null);
@@ -28,8 +25,6 @@ export default function HomePage() {
     const [defaultCompany, setDefaultCompany] = useState(null);
     const [liveProducts, setLiveProducts] = useState(initialProducts);
     const [isLoadingProducts, setIsLoadingProducts] = useState(true);
-    const [selectedProduct, setSelectedProduct] = useState(null);
-    const [showProductDetail, setShowProductDetail] = useState(false);
     const [cartItemCount, setCartItemCount] = useState(0);
     const heroRef = useRef(null);
 
@@ -37,12 +32,12 @@ export default function HomePage() {
         checkAuth();
         loadDefaultCompanyAndProducts();
 
-        // ✅ AUTO-REFRESH products every 10 seconds
+        // ✅ AUTO-REFRESH products every 60 seconds (reduced from 10s to save bandwidth/battery)
         const refreshInterval = setInterval(() => {
             if (defaultCompany?.id) {
                 loadProducts(defaultCompany.id);
             }
-        }, 10000);
+        }, 60000);
 
         return () => {
             clearInterval(refreshInterval);
@@ -1470,7 +1465,7 @@ export default function HomePage() {
                                     <motion.div 
                                         key={social}
                                         whileHover={{ scale: 1.1, y: -2 }}
-                                        className="w-10 h-10 rounded-full bg-white border border-emerald-100 flex items-center justify-center cursor-pointer hover:bg-emerald-900 hover:text-white transition-all shadow-sm"
+                                        className="w-11 h-11 rounded-full bg-white border border-emerald-100 flex items-center justify-center cursor-pointer hover:bg-emerald-900 hover:text-white transition-all shadow-sm"
                                     >
                                         <div className="w-4 h-4 uppercase text-[8px] font-black">{social.charAt(0)}</div>
                                     </motion.div>
@@ -1551,21 +1546,6 @@ export default function HomePage() {
                     </div>
                 </div>
             </footer>
-
-
-            {/* Product Detail Modal */}
-            {showProductDetail && selectedProduct && (
-                <ProductDetailModal
-                    product={selectedProduct}
-                    isOpen={showProductDetail}
-                    onClose={() => {
-                        setShowProductDetail(false);
-                        setSelectedProduct(null);
-                    }}
-                    currentUser={user}
-                    companyData={defaultCompany}
-                />
-            )}
         </div>);
 
 }

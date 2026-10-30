@@ -8,7 +8,7 @@ import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { toast } from 'sonner';
 import {
   Search, ShoppingCart, Leaf, MessageCircle, X, Plus, Minus,
-  Package, ChevronLeft, Smartphone, Sparkles
+  Package, ChevronLeft, Smartphone
 } from 'lucide-react';
 
 const COMPANY_ID = '694cc38feacdffcc010f0d60';
@@ -348,11 +348,11 @@ export default function KatalogPage() {
                     <p className="text-xs text-emerald-700">{formatRp(i.price)}</p>
                   </div>
                   <div className="flex items-center gap-1">
-                    <button onClick={() => updateQty(i.id, i.qty - 1)} className="w-7 h-7 rounded bg-gray-100 flex items-center justify-center">
+                    <button onClick={() => updateQty(i.id, i.qty - 1)} className="w-11 h-11 rounded bg-gray-100 flex items-center justify-center">
                       <Minus className="w-3 h-3" />
                     </button>
                     <span className="text-sm w-5 text-center">{i.qty}</span>
-                    <button onClick={() => updateQty(i.id, i.qty + 1)} className="w-7 h-7 rounded bg-gray-100 flex items-center justify-center">
+                    <button onClick={() => updateQty(i.id, i.qty + 1)} className="w-11 h-11 rounded bg-gray-100 flex items-center justify-center">
                       <Plus className="w-3 h-3" />
                     </button>
                   </div>

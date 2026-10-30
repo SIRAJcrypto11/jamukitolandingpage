@@ -103,7 +103,7 @@ export const initialProducts = [
     name: "Madu Murni 350ml",
     category: "Madu",
     price: 60000,
-    image_url: "https://images.unsplash.com/photo-1589927986089-35812388d1f4?w=500&q=80",
+    image_url: "/images/products/madu_350.png",
     description: "Madu murni 100% alami kaya nutrisi untuk imunitas.",
     is_active: true
   },
@@ -121,7 +121,7 @@ export const initialProducts = [
     name: "Madu Murni 150gr",
     category: "Madu",
     price: 25000,
-    image_url: "https://images.unsplash.com/photo-1589927986089-35812388d1f4?w=500&q=150",
+    image_url: "/images/products/madu_150.png",
     description: "Madu murni kemasan praktis.",
     is_active: true
   },
