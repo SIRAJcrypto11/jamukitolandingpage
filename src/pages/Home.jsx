@@ -42,13 +42,12 @@ export default function HomePage() {
         checkAuth();
         loadDefaultCompanyAndProducts();
 
-        // ✅ AUTO-REFRESH products every 10 seconds
+        // ✅ AUTO-REFRESH products every 60 seconds (reduced from 10s to save bandwidth/battery)
         const refreshInterval = setInterval(() => {
             if (defaultCompany?.id) {
-                console.log('🔄 HOME auto-refresh (10s)');
                 loadProducts(defaultCompany.id);
             }
-        }, 10000);
+        }, 60000);
 
         return () => {
             console.log('🛑 HOME unmounted');
