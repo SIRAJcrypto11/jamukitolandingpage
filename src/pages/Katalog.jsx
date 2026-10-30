@@ -8,7 +8,7 @@ import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { toast } from 'sonner';
 import {
   Search, ShoppingCart, Leaf, MessageCircle, X, Plus, Minus,
-  Package, ChevronLeft, Filter
+  Package, ChevronLeft, Smartphone, Sparkles
 } from 'lucide-react';
 
 const COMPANY_ID = '694cc38feacdffcc010f0d60';
@@ -17,8 +17,27 @@ const CART_KEY = 'jk_katalog_cart';
 
 const formatRp = (n) => `Rp ${Number(n || 0).toLocaleString('id-ID')}`;
 
+// Priority: herbal / signature products first, beverage/water last
+const PRIORITY_KEYWORDS = [
+  'herbal', 'jamu', 'madu', 'sr12', 'onkou', 'kunyit', 'kapsul', 'bubuk',
+  'beauty', 'spa', 'totok', 'hotstone', 'mbr', 'sabun', 'minyak', 'v-co', 'vco'
+];
+const DEPRIORITIZE_KEYWORDS = [
+  'aqua', 'air mineral', 'cristallin', 'crystalline', 'le minerale', 'cleo',
+  'vit', 'minuman', 'snack', 'chitato', 'indomie', 'mie', 'teh botol'
+];
+
+function productScore(p) {
+  const text = `${p.name || ''} ${p.category || ''}`.toLowerCase();
+  let score = 50;
+  if (PRIORITY_KEYWORDS.some((k) => text.includes(k))) score += 40;
+  if (DEPRIORITIZE_KEYWORDS.some((k) => text.includes(k))) score -= 60;
+  // slight boost for products with image
+  if (p.image_url) score += 2;
+  return score;
+}
+
 export default function KatalogPage() {
-  // Instant: start with static products — never block on network
   const [products, setProducts] = useState(initialProducts);
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('all');
@@ -27,8 +46,8 @@ export default function KatalogPage() {
   });
   const [showCart, setShowCart] = useState(false);
   const [detail, setDetail] = useState(null);
+  const [user, setUser] = useState(null);
 
-  // Background refresh — does not block render
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -41,7 +60,13 @@ export default function KatalogPage() {
           setProducts(live);
         }
       } catch {
-        // keep static products
+        // keep static
+      }
+      try {
+        const me = await base44.auth.me();
+        if (!cancelled && me?.id) setUser(me);
+      } catch {
+        // guest
       }
     })();
     return () => { cancelled = true; };
@@ -51,19 +76,30 @@ export default function KatalogPage() {
     localStorage.setItem(CART_KEY, JSON.stringify(cart));
   }, [cart]);
 
-  const categories = useMemo(() => {
-    const set = new Set(products.map((p) => p.category).filter(Boolean));
-    return ['all', ...Array.from(set)];
+  const sorted = useMemo(() => {
+    return [...products].sort((a, b) => productScore(b) - productScore(a));
   }, [products]);
+
+  const categories = useMemo(() => {
+    const set = new Set(sorted.map((p) => p.category).filter(Boolean));
+    // put priority categories first
+    const list = Array.from(set);
+    list.sort((a, b) => {
+      const aPri = PRIORITY_KEYWORDS.some((k) => a.toLowerCase().includes(k)) ? 1 : 0;
+      const bPri = PRIORITY_KEYWORDS.some((k) => b.toLowerCase().includes(k)) ? 1 : 0;
+      return bPri - aPri || a.localeCompare(b);
+    });
+    return ['all', ...list];
+  }, [sorted]);
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
-    return products.filter((p) => {
+    return sorted.filter((p) => {
       const okCat = category === 'all' || p.category === category;
       const okQ = !q || (p.name || '').toLowerCase().includes(q) || (p.description || '').toLowerCase().includes(q);
       return okCat && okQ;
     });
-  }, [products, search, category]);
+  }, [sorted, search, category]);
 
   const cartCount = cart.reduce((s, i) => s + i.qty, 0);
   const cartTotal = cart.reduce((s, i) => s + (i.price || 0) * i.qty, 0);
@@ -95,11 +131,33 @@ export default function KatalogPage() {
     window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
   };
 
+  const orderViaApp = async () => {
+    if (cart.length === 0) {
+      toast.error('Keranjang masih kosong');
+      return;
+    }
+    try {
+      const me = user || await base44.auth.me();
+      if (!me?.id) {
+        toast.info('Login sebagai member untuk order via aplikasi');
+        base44.auth.redirectToLogin(window.location.href);
+        return;
+      }
+      // Persist cart for the app checkout to pick up
+      localStorage.setItem('jk_app_checkout_cart', JSON.stringify(cart));
+      toast.success('Membuka checkout aplikasi...');
+      window.location.href = '/Checkout';
+    } catch {
+      toast.info('Silakan login sebagai member terlebih dahulu');
+      base44.auth.redirectToLogin(window.location.href);
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-[#f7f6f2] text-[#1a2e1d]">
-      {/* Header */}
-      <header className="sticky top-0 z-40 bg-[#0f1f12]/95 backdrop-blur border-b border-white/10">
-        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+    <div className="min-h-screen bg-[#f6f5f1] text-[#1a2e1d]">
+      {/* Fixed header — never scrolls away */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[#0f1f12] border-b border-white/10 shadow-md">
+        <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between gap-3">
           <a href="/" className="flex items-center gap-2 text-white">
             <ChevronLeft className="w-4 h-4" />
             <Leaf className="w-5 h-5 text-emerald-400" />
@@ -110,12 +168,12 @@ export default function KatalogPage() {
           </a>
           <button
             onClick={() => setShowCart(true)}
-            className="relative flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white text-sm font-semibold px-3 py-2 rounded-full transition"
+            className="relative flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white text-sm font-semibold px-3.5 py-2 rounded-full transition"
           >
             <ShoppingCart className="w-4 h-4" />
             <span className="hidden sm:inline">Keranjang</span>
             {cartCount > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 bg-amber-400 text-black text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
+              <span className="absolute -top-1.5 -right-1.5 bg-amber-400 text-black text-[10px] font-bold min-w-[18px] h-[18px] px-1 rounded-full flex items-center justify-center">
                 {cartCount}
               </span>
             )}
@@ -123,29 +181,34 @@ export default function KatalogPage() {
         </div>
       </header>
 
+      {/* Spacer for fixed header */}
+      <div className="h-14" />
+
       {/* Hero */}
-      <section className="bg-gradient-to-b from-[#0f1f12] to-[#1a3a22] text-white py-10 px-4">
+      <section className="bg-gradient-to-b from-[#0f1f12] to-[#16301c] text-white py-8 px-4">
         <div className="max-w-6xl mx-auto">
-          <p className="text-amber-300 text-xs tracking-[0.3em] uppercase mb-2">Katalog Produk</p>
+          <p className="text-amber-300 text-[11px] tracking-[0.28em] uppercase mb-1.5 flex items-center gap-1.5">
+            <Sparkles className="w-3.5 h-3.5" /> Katalog Produk
+          </p>
           <h1 className="text-3xl sm:text-4xl font-black leading-tight">
             Semua Produk<br />Jamu Kito International
           </h1>
-          <p className="text-white/70 mt-2 text-sm max-w-md">
-            Pilih produk, masukkan keranjang, lalu pesan langsung via WhatsApp. Tidak perlu login.
+          <p className="text-white/65 mt-2 text-sm max-w-md">
+            Produk herbal unggulan di atas. Pesan via WhatsApp atau login sebagai member untuk order di aplikasi.
           </p>
         </div>
       </section>
 
-      {/* Filters */}
-      <div className="sticky top-[57px] z-30 bg-[#f7f6f2]/95 backdrop-blur border-b border-black/5">
-        <div className="max-w-6xl mx-auto px-4 py-3 space-y-3">
+      {/* Sticky filter strip (sticks under fixed header) */}
+      <div className="sticky top-14 z-40 bg-[#f6f5f1]/95 backdrop-blur border-b border-black/5">
+        <div className="max-w-6xl mx-auto px-4 py-3 space-y-2.5">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <Input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Cari produk..."
-              className="pl-9 bg-white border-black/10"
+              className="pl-9 bg-white border-black/10 h-10"
             />
           </div>
           <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
@@ -153,9 +216,9 @@ export default function KatalogPage() {
               <button
                 key={c}
                 onClick={() => setCategory(c)}
-                className={`shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold transition ${
+                className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition ${
                   category === c
-                    ? 'bg-emerald-600 text-white'
+                    ? 'bg-emerald-600 text-white shadow-sm'
                     : 'bg-white text-gray-600 border border-black/10 hover:border-emerald-400'
                 }`}
               >
@@ -166,13 +229,11 @@ export default function KatalogPage() {
         </div>
       </div>
 
-      {/* Grid — instant, no skeleton */}
-      <main className="max-w-6xl mx-auto px-4 py-6">
-        <div className="flex items-center justify-between mb-4 text-sm text-gray-500">
+      {/* Grid */}
+      <main className="max-w-6xl mx-auto px-4 py-5">
+        <div className="flex items-center justify-between mb-3 text-sm text-gray-500">
           <span>{filtered.length} produk</span>
-          <span className="flex items-center gap-1 text-emerald-700">
-            <Filter className="w-3.5 h-3.5" /> Filter
-          </span>
+          <span className="text-emerald-700 text-xs font-medium">Herbal & unggulan di atas</span>
         </div>
 
         {filtered.length === 0 ? (
@@ -187,9 +248,9 @@ export default function KatalogPage() {
                 key={p.id}
                 className="bg-white rounded-xl overflow-hidden border border-black/5 shadow-sm hover:shadow-md transition flex flex-col"
               >
-                <button onClick={() => setDetail(p)} className="aspect-square bg-gray-100 relative">
+                <button onClick={() => setDetail(p)} className="aspect-square bg-gray-50 relative">
                   {p.image_url ? (
-                    <img src={p.image_url} alt={p.name} className="w-full h-full object-cover" loading="eager" />
+                    <img src={p.image_url} alt={p.name} className="w-full h-full object-cover" loading="lazy" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
                       <Leaf className="w-10 h-10 text-emerald-300" />
@@ -217,12 +278,12 @@ export default function KatalogPage() {
         )}
       </main>
 
-      {/* Detail dialog */}
+      {/* Detail */}
       <Dialog open={!!detail} onOpenChange={() => setDetail(null)}>
         <DialogContent className="max-w-md p-0 overflow-hidden">
           {detail && (
             <div>
-              <div className="aspect-square bg-gray-100">
+              <div className="aspect-square bg-gray-50">
                 {detail.image_url ? (
                   <img src={detail.image_url} alt={detail.name} className="w-full h-full object-cover" />
                 ) : (
@@ -247,7 +308,7 @@ export default function KatalogPage() {
         </DialogContent>
       </Dialog>
 
-      {/* Cart drawer */}
+      {/* Cart */}
       <Dialog open={showCart} onOpenChange={setShowCart}>
         <DialogContent className="max-w-md p-0">
           <div className="p-4 border-b flex items-center justify-between">
@@ -256,7 +317,7 @@ export default function KatalogPage() {
             </h2>
             <button onClick={() => setShowCart(false)}><X className="w-5 h-5" /></button>
           </div>
-          <div className="max-h-80 overflow-auto p-4 space-y-3">
+          <div className="max-h-72 overflow-auto p-4 space-y-3">
             {cart.length === 0 ? (
               <p className="text-center text-gray-400 py-8 text-sm">Keranjang kosong</p>
             ) : (
@@ -270,11 +331,11 @@ export default function KatalogPage() {
                     <p className="text-xs text-emerald-700">{formatRp(i.price)}</p>
                   </div>
                   <div className="flex items-center gap-1">
-                    <button onClick={() => updateQty(i.id, i.qty - 1)} className="w-6 h-6 rounded bg-gray-100 flex items-center justify-center">
+                    <button onClick={() => updateQty(i.id, i.qty - 1)} className="w-7 h-7 rounded bg-gray-100 flex items-center justify-center">
                       <Minus className="w-3 h-3" />
                     </button>
                     <span className="text-sm w-5 text-center">{i.qty}</span>
-                    <button onClick={() => updateQty(i.id, i.qty + 1)} className="w-6 h-6 rounded bg-gray-100 flex items-center justify-center">
+                    <button onClick={() => updateQty(i.id, i.qty + 1)} className="w-7 h-7 rounded bg-gray-100 flex items-center justify-center">
                       <Plus className="w-3 h-3" />
                     </button>
                   </div>
@@ -283,20 +344,29 @@ export default function KatalogPage() {
             )}
           </div>
           {cart.length > 0 && (
-            <div className="p-4 border-t space-y-3">
+            <div className="p-4 border-t space-y-2.5">
               <div className="flex justify-between font-bold">
                 <span>Total</span>
                 <span className="text-emerald-700">{formatRp(cartTotal)}</span>
               </div>
-              <Button onClick={orderViaWA} className="w-full bg-emerald-600 hover:bg-emerald-500 gap-2">
+              <Button onClick={orderViaWA} className="w-full bg-emerald-600 hover:bg-emerald-500 gap-2 h-11">
                 <MessageCircle className="w-4 h-4" /> Pesan via WhatsApp
               </Button>
+              <Button onClick={orderViaApp} variant="outline" className="w-full gap-2 h-11 border-emerald-600 text-emerald-700 hover:bg-emerald-50">
+                <Smartphone className="w-4 h-4" /> Order via Aplikasi
+                <span className="text-[10px] font-normal opacity-70">(login member)</span>
+              </Button>
+              {!user && (
+                <p className="text-[11px] text-center text-gray-400">
+                  Order via aplikasi memerlukan login sebagai member.
+                </p>
+              )}
             </div>
           )}
         </DialogContent>
       </Dialog>
 
-      {/* Floating WA for empty cart help */}
+      {/* Floating WA */}
       <a
         href={"https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent("Halo Jamu Kito, saya ingin bertanya tentang katalog produk.")}
         target="_blank"
